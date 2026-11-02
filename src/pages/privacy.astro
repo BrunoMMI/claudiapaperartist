@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../config/site';
+---
+
+<Layout title="Privacy" description="Informativa sulla privacy del sito di Claudia D'Andrea." noindex>
+  <PageHero title="Privacy" />
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="form-status" style="max-width:38rem;margin-bottom:2.5rem">
+        <strong>Bozza tecnica.</strong> Le parti tra parentesi quadre devono essere completate dalla titolare del sito, e il
+        testo definitivo va verificato da un professionista prima della pubblicazione.
+      </div>
+      <div class="prose">
+        <h2 class="display-md" style="margin-bottom:1rem">Titolare del trattamento</h2>
+        <p>[Nome o ragione sociale, indirizzo, partita IVA e recapito della titolare: da fornire.]</p>
+        <p>Contatto per la privacy: <a href={`mailto:${site.email}`} class="inline-link">{site.email}</a></p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">Che cosa fa questo sito</h2>
+        <p>
+          Il sito non utilizza cookie di profilazione, strumenti di analisi o pubblicità e non installa cookie. I font sono
+          ospitati sul sito stesso. Non vengono caricati script di terze parti.
+        </p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">Modulo di contatto</h2>
+        <p>
+          Se scrivi tramite il modulo, vengono trattati nome, indirizzo email, tipo di richiesta e testo del messaggio, al solo
+          scopo di risponderti. Il messaggio viene inoltrato alla casella email della titolare tramite il servizio di invio
+          Resend. [Base giuridica, tempi di conservazione, trasferimenti extra-UE e diritti dell&rsquo;interessato: da
+          completare.]
+        </p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">Hosting</h2>
+        <p>
+          Il sito è ospitato su Vercel, che può registrare i dati tecnici di navigazione (come l&rsquo;indirizzo IP) nei log del
+          server. [Dettagli da completare.]
+        </p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">I tuoi diritti</h2>
+        <p>[Elenco dei diritti e modalità di esercizio: da completare.]</p>
+      </div>
+    </div>
+  </section>
+</Layout>

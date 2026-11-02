@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { nav, site } from '../config/site';
+import markDark from '../assets/logo/logo-mark-dark.png';
+import markLight from '../assets/logo/logo-mark-light.png';
+
+interface Props {
+  /** "light": testo chiaro, per pagine con testata scura (home) */
+  tone?: 'light' | 'dark';
+}
+const { tone = 'dark' } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isCurrent = (href: string) => path === href || path.startsWith(href + '/');
+---
+
+<header class="site-header" data-tone={tone}>
+  <div class="wrap site-header__bar">
+    <a href="/" class="brand" aria-label={`${site.name} ${site.role} – home`}>
+      <Image src={tone === 'light' ? markLight : markDark} alt="" width={88} height={96} loading="eager" />
+      <span class="brand__text">
+        <span class="brand__name">{site.name}</span>
+        <span class="brand__role">{site.role}</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Principale">
+      {nav.map((n) => <a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a>)}
+    </nav>
+
+    <a href="#menu" class="menu-btn" data-menu-open aria-label="Apri il menu" aria-controls="menu" aria-expanded="false">
+      <Icon name="menu" />
+    </a>
+  </div>
+</header>
+
+<div id="menu" class="menu-overlay" role="dialog" aria-modal="true" aria-label="Menu">
+  <a href="#contenuto" class="menu-btn menu-overlay__close" data-menu-close aria-label="Chiudi il menu">
+    <Icon name="close" />
+  </a>
+  <nav aria-label="Menu completo">
+    <ul>
+      <li style="--i:0"><a href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a></li>
+      {nav.map((n, i) => <li style={`--i:${i + 1}`}><a href={n.href} aria-current={isCurrent(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+    </ul>
+  </nav>
+  <div class="menu-overlay__foot label">
+    <a href={`mailto:${site.email}`} class="inline-link">{site.email}</a>
+    {site.socials.map((s) => <a href={s.href} class="inline-link" rel="me noopener" target="_blank">{s.label}</a>)}
+  </div>
+</div>

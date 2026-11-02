@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import Gallery from '../components/Gallery.astro';
+import { services, allestimentiShots } from '../data/services';
+import { photo } from '../data/photos';
+
+const cta: Record<string, [string, string]> = {
+  'sculture-di-carta': ['Vedi le sculture', '/lavori/sculture'],
+  'installazioni-luminose': ['Vedi le installazioni', '/lavori/installazioni-luminose'],
+  'allestimenti-ed-eventi': ['Chiedi un allestimento', '/contatti'],
+  'laboratori-creativi': ['Scopri i laboratori', '/laboratori'],
+};
+---
+
+<Layout
+  title="Servizi"
+  description="Sculture di carta su misura, installazioni luminose, allestimenti ed eventi, laboratori creativi per adulti e bambini."
+  image={photo('lavori/inverno')}
+>
+  <PageHero
+    title="Cosa posso fare per te"
+    lead="Opere uniche, atmosfere di luce, scenografie e momenti da vivere con le mani: ogni progetto nasce dal dialogo con lo spazio e con chi lo abita."
+  />
+
+  <div class="wrap">
+    {
+      services.map((s) => (
+        <section id={s.id} class="service-row" aria-labelledby={`t-${s.id}`}>
+          <div data-reveal>
+            <h2 id={`t-${s.id}`} class="display-lg">{s.title}</h2>
+            <p class="prose muted" style="margin-top:1.4rem">{s.long}</p>
+            <p style="margin-top:2rem">
+              <a href={cta[s.id][1]} class="cta">{cta[s.id][0]}</a>
+            </p>
+          </div>
+          <div class="service-row__img" data-reveal="image" style="--d:120ms">
+            <Photo name={s.photo} alt={s.alt} sizes="(min-width: 860px) 46vw, 92vw" widths={[500, 800, 1200]} />
+          </div>
+        </section>
+      ))
+    }
+  </div>
+
+  <section class="section-tight" aria-labelledby="alle-title">
+    <div class="wrap">
+      <h2 id="alle-title" class="label" style="margin-bottom:1.6rem">Allestimenti: un esempio</h2>
+      <Gallery shots={allestimentiShots} group="allestimenti" calm />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="display:grid;gap:1.8rem;justify-items:start">
+      <p class="display-md" style="max-width:24ch">Hai un progetto in mente? Raccontamelo.</p>
+      <a href="/contatti" class="cta">Scrivimi</a>
+    </div>
+  </section>
+</Layout>

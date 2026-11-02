@@ -1,0 +1,15 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/about-me", "destination": "/about", "permanent": true },
+    { "source": "/about-my-art", "destination": "/about#la-mia-arte", "permanent": true },
+    { "source": "/my-artworks", "destination": "/lavori", "permanent": true },
+    { "source": "/sculptures", "destination": "/lavori/sculture", "permanent": true },
+    { "source": "/wall-sculptures", "destination": "/lavori/sculture", "permanent": true },
+    { "source": "/light", "destination": "/lavori/sculture", "permanent": true },
+    { "source": "/paper-lamps", "destination": "/lavori/paper-lamps", "permanent": true },
+    { "source": "/exhibitions", "destination": "/mostre", "permanent": true },
+    { "source": "/contact", "destination": "/contatti", "permanent": true }
+  ]
+}

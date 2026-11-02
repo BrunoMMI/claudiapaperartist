@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../config/site';
+
+const topics = ['Opera su misura', 'Allestimento o evento', 'Installazione luminosa', 'Laboratorio', 'Mostra o collaborazione', 'Altro'];
+---
+
+<Layout
+  title="Contatti"
+  description="Scrivi a Claudia D'Andrea per informazioni sulle opere, progetti su misura, allestimenti, laboratori o collaborazioni."
+>
+  <PageHero
+    title="Contatti"
+    lead="Per informazioni sulle mie opere, per un progetto su misura o per una collaborazione, scrivimi: ti rispondo appena possibile."
+  />
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap split" style="align-items:start;gap:clamp(3rem,7vw,7rem)">
+      <div data-reveal>
+        <h2 class="label muted" style="margin-bottom:1.1rem">Email</h2>
+        <p class="display-md" style="word-break:break-word">
+          <a href={`mailto:${site.email}`} class="inline-link">{site.email}</a>
+        </p>
+        {
+          site.phone && (
+            <>
+              <h2 class="label muted" style="margin:2.4rem 0 1.1rem">Telefono</h2>
+              <p class="display-md"><a href={`tel:${site.phone.replace(/\s/g, '')}`} class="inline-link">{site.phone}</a></p>
+            </>
+          )
+        }
+        <h2 class="label muted" style="margin:2.4rem 0 1.1rem">Seguimi</h2>
+        <ul style="display:flex;flex-wrap:wrap;gap:0.6rem 2rem;margin:0;padding:0;list-style:none">
+          {site.socials.map((s) => <li><a href={s.href} class="inline-link" rel="me noopener" target="_blank">{s.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div data-reveal style="--d:120ms">
+        <form id="modulo" class="contact-form" method="post" action="/api/contact" novalidate>
+          <div class="field">
+            <label for="nome">Nome e cognome</label>
+            <input class="input" id="nome" name="nome" type="text" autocomplete="name" required maxlength="120" aria-describedby="e-nome" />
+            <p class="field-error" id="e-nome" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="e-email" />
+            <p class="field-error" id="e-email" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="oggetto">Di cosa hai bisogno?</label>
+            <select class="input" id="oggetto" name="oggetto">
+              {topics.map((t) => <option value={t}>{t}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="messaggio">Messaggio</label>
+            <textarea class="input" id="messaggio" name="messaggio" required minlength="10" maxlength="4000" aria-describedby="e-messaggio"></textarea>
+            <p class="field-error" id="e-messaggio" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="check" for="privacy">
+              <input id="privacy" name="privacy" type="checkbox" value="si" required aria-describedby="e-privacy" />
+              <span>Ho letto l&rsquo;<a href="/privacy" class="inline-link">informativa sulla privacy</a> e acconsento al trattamento dei dati per essere ricontattato/a.</span>
+            </label>
+            <p class="field-error" id="e-privacy" role="alert"></p>
+          </div>
+          <!-- Trappola per bot: invisibile alle persone -->
+          <div class="hp" aria-hidden="true">
+            <label for="sito">Non compilare questo campo</label>
+            <input id="sito" name="sito" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" name="t" id="t" value="" />
+          <div style="margin-top:2.2rem">
+            <button class="btn-solid" type="submit">Invia messaggio</button>
+          </div>
+          <div class="form-status" id="stato" role="status" aria-live="polite" hidden></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('modulo') as HTMLFormElement | null;
+  const status = document.getElementById('stato') as HTMLElement | null;
+  if (form && status) {
+    (document.getElementById('t') as HTMLInputElement).value = String(Date.now());
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+
+    const show = (msg: string, state: 'ok' | 'error') => {
+      status.hidden = false;
+      status.dataset.state = state;
+      status.textContent = msg;
+    };
+    const setErr = (id: string, msg: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = msg;
+      const input = el?.previousElementSibling?.closest('.field')?.querySelector<HTMLElement>('input,textarea');
+      input?.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    };
+    const validate = () => {
+      const v = (n: string) => (form.elements.namedItem(n) as HTMLInputElement);
+      let first: HTMLElement | null = null;
+      const rules: [string, string, boolean][] = [
+        ['nome', 'e-nome', v('nome').value.trim().length < 2],
+        ['email', 'e-email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email').value.trim())],
+        ['messaggio', 'e-messaggio', v('messaggio').value.trim().length < 10],
+        ['privacy', 'e-privacy', !v('privacy').checked],
+      ];
+      const texts: Record<string, string> = {
+        nome: 'Inserisci il tuo nome.',
+        email: 'Inserisci un indirizzo email valido.',
+        messaggio: 'Scrivi un messaggio di almeno 10 caratteri.',
+        privacy: 'Per inviare il messaggio serve il consenso al trattamento dei dati.',
+      };
+      for (const [name, errId, bad] of rules) {
+        setErr(errId, bad ? texts[name] : '');
+        if (bad && !first) first = v(name);
+      }
+      first?.focus();
+      return !first;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.hidden = true;
+      if (!validate()) return;
+      btn.disabled = true;
+      const label = btn.textContent;
+      btn.textContent = 'Invio in corso…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.reset();
+          (document.getElementById('t') as HTMLInputElement).value = String(Date.now());
+          show('Grazie, il messaggio è stato inviato. Ti rispondo appena possibile.', 'ok');
+        } else {
+          show(data.error ?? 'Non è stato possibile inviare il messaggio. Riprova tra poco oppure scrivi direttamente via email.', 'error');
+        }
+      } catch {
+        show('Connessione assente: il messaggio non è stato inviato. Riprova oppure scrivi direttamente via email.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+
+    // Fallback senza JavaScript: l'endpoint reindirizza con ?stato=...
+    const p = new URLSearchParams(location.search).get('stato');
+    if (p === 'ok') show('Grazie, il messaggio è stato inviato. Ti rispondo appena possibile.', 'ok');
+    if (p === 'errore') show('Non è stato possibile inviare il messaggio. Controlla i campi e riprova, oppure scrivi direttamente via email.', 'error');
+  }
+</script>

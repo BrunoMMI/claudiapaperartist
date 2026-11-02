@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { featured } from '../data/works';
+import { photo } from '../data/photos';
+
+const icons = ['sculpture', 'light', 'event', 'workshop'] as const;
+---
+
+<Layout
+  tone="light"
+  description="Sculture di carta, installazioni luminose, allestimenti ed eventi su misura, laboratori creativi. Il portfolio di Claudia D'Andrea, paper artist."
+  image={photo('lavori/atena-1')}
+>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <Photo
+        name="lavori/atena-1"
+        alt="Atena, scultura di carta bianca con una chioma di rami, su fondo nero"
+        sizes="(min-width: 768px) 62vw, 100vw"
+        widths={[640, 960, 1280, 1600]}
+        loading="eager"
+        fetchpriority="high"
+        quality={80}
+      />
+    </div>
+    <div class="hero__shade"></div>
+    <div class="wrap hero__inner">
+      <p class="hero__kicker label">
+        <span>Sculture di carta</span>
+        <span>Installazioni · Allestimenti · Eventi</span>
+      </p>
+      <h1 id="hero-title" class="display-xl">Do forma alla luce e alla carta.</h1>
+      <div><a href="/lavori" class="cta">Scopri il mio lavoro</a></div>
+    </div>
+    <a href="#intro" class="hero__scroll" aria-label="Scorri alla sezione successiva">
+      <span>Scroll</span><i></i>
+    </a>
+  </section>
+
+  <!-- INTRO -->
+  <section id="intro" class="section">
+    <div class="wrap split split--wide-text">
+      <div data-reveal>
+        <p class="label muted" style="margin-bottom:1.6rem">Claudia D'Andrea · Paper Artist</p>
+        <p class="lede" style="max-width:26ch">
+          Creo sculture di carta, <em>installazioni luminose</em> e allestimenti su misura per spazi e storie che vogliono emozionare.
+        </p>
+        <div style="margin-top:2.2rem"><a href="/about" class="cta">Scopri di più</a></div>
+      </div>
+      <div data-reveal="image" style="--d:150ms;justify-self:center;width:min(100%,26rem)">
+        <Photo
+          name="lavori/light-5"
+          alt="Light No. 5, scultura da parete in carta bianca con una piega diagonale su fondo blu notte"
+          sizes="(min-width: 860px) 26rem, 90vw"
+          widths={[420, 640, 900]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section class="section-tight" aria-labelledby="servizi-title" style="padding-top:0">
+    <div class="wrap">
+      <h2 id="servizi-title" class="label" style="text-align:center">Cosa posso fare per te</h2>
+      <div class="services">
+        {
+          services.map((s, i) => (
+            <a href={s.href} class="service" data-reveal style={`--d:${i * 90}ms`}>
+              <Icon name={icons[i]} />
+              <h3 class="label" style="font-family:var(--font-sans);font-weight:400">{s.title}</h3>
+              <p>{s.short}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SELEZIONE LAVORI -->
+  <section class="section" aria-labelledby="selezione-title" style="padding-bottom:clamp(3rem,6vw,5rem)">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.6rem">
+      <h2 id="selezione-title" class="label">Selezione lavori</h2>
+      <a href="/lavori" class="label inline-link">Vedi tutti</a>
+    </div>
+    <ul class="selection" style="margin:0;padding:0 clamp(0rem,0.5vw,0.4rem)">
+      {
+        featured.map((f, i) => (
+          <li data-reveal style={`--d:${i * 70}ms`}>
+            <a href={f.href}>
+              <figure>
+                <div class="selection__img">
+                  <Photo name={f.key} alt={f.alt} sizes="(min-width: 900px) 20vw, 50vw" widths={[360, 560, 800]} />
+                </div>
+                <figcaption>
+                  <span class="label">{f.kind}</span>
+                  <span>{f.title}</span>
+                </figcaption>
+              </figure>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- CITAZIONE -->
+  <section class="band" aria-label="Il mio motto">
+    <div class="band__img" aria-hidden="true">
+      <Photo name="sfondi/carta-piegata" alt="" sizes="100vw" widths={[800, 1400, 2000]} />
+    </div>
+    <div class="wrap band__inner">
+      <blockquote data-reveal>
+        <p class="display-lg">Dare nuova luce alla carta e, attraverso essa, alle persone.</p>
+      </blockquote>
+      <a href="/about#la-mia-arte" class="cta" data-reveal style="--d:200ms">Il mio approccio</a>
+    </div>
+  </section>
+
+  <!-- LABORATORI -->
+  <section class="section" aria-labelledby="lab-title">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="label muted" style="margin-bottom:1.6rem">Laboratori e workshop</p>
+        <h2 id="lab-title" class="display-md" style="max-width:22ch">
+          Esperienze creative per imparare, sperimentare e lasciarsi ispirare dalla carta.
+        </h2>
+        <div style="margin-top:2.2rem"><a href="/laboratori" class="cta">Scopri i laboratori</a></div>
+      </div>
+      <div data-reveal="image" style="--d:150ms">
+        <Photo
+          name="laboratori/valata-2"
+          alt="Un fiore di cartone costruito a strati, tenuto tra le mani durante un laboratorio"
+          sizes="(min-width: 860px) 46vw, 92vw"
+          widths={[500, 800, 1200]}
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

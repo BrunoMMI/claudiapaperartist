@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site, SITE_URL, INDEXABLE } from '../config/site';
+import ogDefault from '../assets/og-default.jpg';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** "light" per pagine con testata scura */
+  tone?: 'light' | 'dark';
+  /** immagine social (ImageMetadata o URL assoluto); di default l'immagine del sito */
+  image?: ImageMetadata;
+  /** dati strutturati aggiuntivi (oggetti JSON-LD) */
+  jsonLd?: Record<string, unknown>[];
+  noindex?: boolean;
+  type?: 'website' | 'article';
+}
+
+const { title, description = site.description, tone = 'dark', image, jsonLd = [], noindex = false, type = 'website' } = Astro.props;
+
+const fullTitle = title ? `${title} · ${site.name}` : site.title;
+const pathname = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, '');
+const base = SITE_URL || Astro.site?.origin || '';
+const canonical = `${base}${pathname === '/' ? '' : pathname}` || base;
+const og = new URL((image ?? ogDefault).src, base || 'http://localhost').href;
+const robots = INDEXABLE && !noindex ? 'index,follow,max-image-preview:large' : 'noindex,nofollow';
+
+const person = {
+  '@type': 'Person',
+  '@id': `${base}/#claudia`,
+  name: site.name,
+  jobTitle: site.role,
+  url: base || undefined,
+  email: site.email,
+  sameAs: site.socials.map((s) => s.href),
+  description: site.description,
+};
+const website = { '@type': 'WebSite', '@id': `${base}/#website`, url: base || undefined, name: site.name, inLanguage: 'it-IT', publisher: { '@id': `${base}/#claudia` } };
+const graph = { '@context': 'https://schema.org', '@graph': [person, website, ...jsonLd] };
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    {INDEXABLE && <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#f5f3ef" />
+
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={og} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+    <Header tone={tone} />
+    <main id="contenuto" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/site.ts';
+    </script>
+  </body>
+</html>

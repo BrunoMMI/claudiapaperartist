@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Gallery from '../../components/Gallery.astro';
+import { categories } from '../../data/works';
+import { photo } from '../../data/photos';
+---
+
+<Layout
+  title="Lavori"
+  description="Installazioni luminose, wall sculptures e sculture, paper lamps: una selezione delle opere in carta di Claudia D'Andrea."
+  image={photo('lavori/autunno')}
+>
+  <PageHero
+    title="Lavori"
+    lead="Una selezione di opere, divise per famiglie: la luce che attraversa la carta, la carta che si fa rilievo, la carta che si fa figura."
+  />
+  <div class="is-night section">
+    {
+      categories.map((c) => (
+        <section class="cat-block" aria-labelledby={`h-${c.slug}`}>
+          <div class="wrap cat-head">
+            <h2 id={`h-${c.slug}`} class="display-lg" data-reveal>{c.title}</h2>
+            <div data-reveal style="--d:100ms">
+              <p class="muted" style="max-width:30rem">{c.summary}</p>
+              <p style="margin-top:1.4rem"><a href={`/lavori/${c.slug}`} class="cta">Vedi la serie</a></p>
+            </div>
+          </div>
+          <div class="wrap">
+            <Gallery shots={c.shots.slice(0, c.slug === 'paper-lamps' ? 3 : 4)} group={`lavori-${c.slug}`} calm />
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Layout>

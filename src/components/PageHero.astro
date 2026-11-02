@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  lead?: string;
+  /** briciole di pane: [etichetta, href] */
+  crumbs?: [string, string][];
+}
+const { title, lead, crumbs = [] } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="wrap">
+    {
+      crumbs.length > 0 && (
+        <nav class="crumbs label" aria-label="Percorso">
+          {crumbs.map(([l, h]) => (
+            <>
+              <a href={h}>{l}</a>
+              <span aria-hidden="true"> / </span>
+            </>
+          ))}
+        </nav>
+      )
+    }
+    <h1 class="display-xl">{title}</h1>
+    {lead && <p class="page-hero__lead lede muted">{lead}</p>}
+    <slot />
+  </div>
+</section>

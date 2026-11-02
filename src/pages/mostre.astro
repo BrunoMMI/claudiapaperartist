@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Gallery from '../components/Gallery.astro';
+import { exhibitions } from '../data/exhibitions';
+import { photo } from '../data/photos';
+
+const years = [...new Set(exhibitions.map((e) => e.year))].sort((a, b) => b - a);
+---
+
+<Layout
+  title="Mostre"
+  description="Le mostre di Claudia D'Andrea, paper artist: personali e collettive da Firenze a Londra, da Zagarolo a Benevento."
+  image={photo('mostre/luce-di-carta-opere')}
+>
+  <PageHero
+    title="Mostre"
+    lead="Personali e collettive, in gallerie, palazzi storici e spazi culturali: un percorso dal 2022 a oggi."
+  />
+
+  <section class="section-tight" style="padding-top:0" aria-label="Elenco delle mostre">
+    <div class="wrap year-list">
+      {
+        years.map((y) => (
+          <div class="year-row">
+            <h2 class="year-row__year" data-reveal>{y}</h2>
+            <div>
+              {exhibitions
+                .filter((e) => e.year === y)
+                .map((e) => (
+                  <article class="ex-item" id={e.slug}>
+                    <h3 data-reveal>{e.title}</h3>
+                    <p data-reveal>
+                      {e.venue} &middot; {e.dates}
+                      {e.curators && <> &middot; a cura di {e.curators}</>}
+                      {e.role && <> &middot; {e.role}</>}
+                    </p>
+                    {e.shots && (
+                      <div class="ex-feature">
+                        <Gallery shots={e.shots} group={`mostra-${e.slug}`} calm />
+                      </div>
+                    )}
+                  </article>
+                ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

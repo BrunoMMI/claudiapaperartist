@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { site } from '../config/site';
+import logoDark from '../assets/logo/logo-full-dark.png';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a href="/" aria-label={`${site.name} ${site.role} – home`}>
+          <Image src={logoDark} alt={`${site.name}, ${site.role}`} width={220} loading="lazy" style="width:13.5rem;height:auto" />
+        </a>
+        <p class="muted" style="margin-top:1.4rem;max-width:16rem;font-size:0.92rem">
+          {site.tagline}<br />Sculture, installazioni e laboratori su misura.
+        </p>
+      </div>
+      <div>
+        <h2>Info</h2>
+        <ul>
+          <li><a href={`mailto:${site.email}`} class="inline-link">{site.email}</a></li>
+          {site.phone && <li><a href={`tel:${site.phone.replace(/\s/g, '')}`} class="inline-link">{site.phone}</a></li>}
+          {site.address && <li>{site.address}</li>}
+        </ul>
+      </div>
+      <div>
+        <h2>Seguimi</h2>
+        <ul>
+          {site.socials.map((s) => <li><a href={s.href} class="inline-link" rel="me noopener" target="_blank">{s.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Scrivimi</h2>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem">
+          <p style="max-width:14rem;font-size:0.92rem">Raccontami il tuo progetto. Insieme daremo forma alla tua idea.</p>
+          <a href="/contatti" class="round-btn" aria-label="Vai alla pagina contatti"><Icon name="arrow" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {year} {site.name}</span>
+      <span><a href="/privacy" class="inline-link">Privacy</a></span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Gallery from '../components/Gallery.astro';
+import { workshops, offers } from '../data/workshops';
+import { photo } from '../data/photos';
+---
+
+<Layout
+  title="Laboratori creativi"
+  description="Workshop di carta per adulti e bambini: piegare, tagliare, modellare e illuminare la carta con Claudia D'Andrea."
+  image={photo('laboratori/officina-2')}
+>
+  <PageHero
+    title="Laboratori creativi"
+    lead="Piccoli gruppi, gesti lenti: workshop per imparare a piegare, tagliare e illuminare la carta."
+  />
+
+  <section class="section-tight" aria-labelledby="offerte-title">
+    <div class="wrap">
+      <h2 id="offerte-title" class="label" style="margin-bottom:1.6rem">Laboratori che posso proporre</h2>
+      <div class="offer-grid">
+        {
+          offers.map((o, i) => (
+            <article class="offer" data-reveal style={`--d:${i * 90}ms`}>
+              <h3 class="display-md">{o.title}</h3>
+              <p class="muted">{o.text}</p>
+              <p class="label">{o.meta}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p style="margin-top:2.2rem"><a href="/contatti" class="cta">Richiedi informazioni</a></p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="realizzati-title">
+    <div class="wrap">
+      <h2 id="realizzati-title" class="display-lg">Laboratori realizzati</h2>
+    </div>
+    {
+      workshops.map((w) => (
+        <article class="wrap" id={w.slug} aria-labelledby={`w-${w.slug}`} style="margin-top:clamp(3rem,6vw,5rem)">
+          <hr class="rule" style="margin-bottom:2.2rem" />
+          <div class="cat-head">
+            <div data-reveal>
+              <h3 id={`w-${w.slug}`} class="display-md">{w.title}</h3>
+              <p class="label muted" style="margin-top:1rem">{w.when}</p>
+              <p class="muted" style="font-size:0.92rem;margin-top:0.3rem">{w.place}</p>
+            </div>
+            <div class="prose" data-reveal style="--d:100ms">
+              {w.text.map((p) => <p>{p}</p>)}
+            </div>
+          </div>
+          <Gallery shots={w.shots} group={`lab-${w.slug}`} calm />
+        </article>
+      ))
+    }
+  </section>
+</Layout>

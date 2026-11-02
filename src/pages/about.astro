@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import { photo } from '../data/photos';
+import { site } from '../config/site';
+
+const personExtra = {
+  '@type': 'AboutPage',
+  name: `About · ${site.name}`,
+  inLanguage: 'it-IT',
+  about: { '@type': 'Person', name: site.name, jobTitle: site.role },
+};
+---
+
+<Layout
+  title="About"
+  description="Claudia D'Andrea è un'artista autodidatta: recupera la carta e le dà nuova forma e nuova luce, con sculture e installazioni dallo stile minimalista."
+  image={photo('mostre/wonder-1')}
+  jsonLd={[personExtra]}
+>
+  <section class="page-hero">
+    <div class="wrap split split--wide-text" style="align-items:end">
+      <div>
+        <p class="label muted" style="margin-bottom:1.6rem">About</p>
+        <h1 class="display-xl" style="max-width:12ch">Claudia D'Andrea</h1>
+        <p class="lede" style="margin-top:2rem;max-width:30ch">
+          Artista autodidatta, appassionata di arte, musica, lettura, viaggi e cucina.
+        </p>
+      </div>
+      <div data-reveal="image" style="justify-self:end;width:min(100%,24rem)">
+        <Photo
+          name="mostre/wonder-1"
+          alt="Figura scolpita in carta bianca, alta e verticale, in una sala affrescata di Palazzo Rospigliosi"
+          sizes="(min-width: 860px) 24rem, 90vw"
+          widths={[400, 700, 1000]}
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <p>
+          Recupero vari tipi di carta e do loro una forma nuova, una seconda vita. Ne nascono opere dallo stile minimalista,
+          pensate per portare nuova luce e nuovo stile negli ambienti in cui si vive e si lavora, e per creare intorno a sé
+          un&rsquo;atmosfera di ordine, pace e armonia interiore.
+        </p>
+        <p>
+          Il mio motto è <em>dare nuova luce alla carta e, attraverso essa, alle persone</em>. Per me l&rsquo;arte è rinascita e
+          trasformazione, una forma di terapia: nello studio trovo libertà e pace, in un mondo in cui idee, forme e materiali
+          si mescolano.
+        </p>
+        <p>
+          Mi sta a cuore anche la salvaguardia dell&rsquo;ambiente: attraverso le opere cerco di recuperare e riutilizzare carta
+          e altri materiali, e di richiamare l&rsquo;attenzione su un mondo più pulito e sano.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="la-mia-arte" class="is-night section" aria-labelledby="arte-title" style="scroll-margin-top:0">
+    <div class="wrap split split--wide-text" style="align-items:start">
+      <div data-reveal>
+        <figure style="margin:0 0 3rem">
+          <blockquote style="margin:0">
+            <p class="display-md" style="max-width:24ch">
+              &ldquo;Il mio primo ricordo è luce &ndash; la luminosità della luce &ndash; luce tutto intorno.&rdquo;
+            </p>
+          </blockquote>
+          <figcaption class="label muted" style="margin-top:1.2rem">Georgia O&rsquo;Keeffe</figcaption>
+        </figure>
+        <h2 id="arte-title" class="display-lg" style="max-width:20ch">
+          Delicatezze di carta e di luce
+        </h2>
+        <div class="prose muted" style="margin-top:2rem">
+          <p>
+            Nelle parole della storica dell&rsquo;arte e curatrice Beatrice Cordaro, le opere di Claudia sono fatte di luce e di
+            poesia. Artista poliedrica, realizza tele e sculture; le sculture luminose in carta sono lampade delicate.
+          </p>
+          <p>
+            L&rsquo;ispirazione arriva dalla danza, dalla musica e dall&rsquo;essenza femminile: figure dalla silhouette esile e dalla
+            base energica. Uno stile minimale ma di grande impatto, curato nei dettagli.
+          </p>
+        </div>
+        <p style="margin-top:2.4rem"><a href="/lavori" class="cta">Guarda i lavori</a></p>
+      </div>
+      <div data-reveal="image" style="--d:150ms;justify-self:end;width:min(100%,24rem)">
+        <Photo
+          name="lavori/ballerina-di-flamenco"
+          alt="Ballerina di Flamenco, lampada di carta a forma di figura danzante con gonna ampia"
+          sizes="(min-width: 860px) 24rem, 90vw"
+          widths={[400, 700, 1000]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="display:grid;gap:1.8rem;justify-items:start">
+      <p class="display-md" style="max-width:26ch">Mostre, laboratori e progetti su misura.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:1.6rem 3rem">
+        <a href="/mostre" class="cta">Le mie mostre</a>
+        <a href="/contatti" class="cta">Scrivimi</a>
+      </div>
+    </div>
+  </section>
+</Layout>

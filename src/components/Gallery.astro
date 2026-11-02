@@ -1,0 +1,51 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { photo, type Shot } from '../data/photos';
+
+interface Props {
+  shots: Shot[];
+  /** nome del gruppo per la navigazione nel lightbox */
+  group: string;
+  /** righe più basse, per serie con molte foto */
+  calm?: boolean;
+  /** primo elemento caricato subito (se la galleria è sopra la piega) */
+  eager?: boolean;
+}
+
+const { shots, group, calm = false, eager = false } = Astro.props;
+
+const items = await Promise.all(
+  shots.map(async (s) => {
+    const meta = photo(s.key);
+    const large = await getImage({ src: meta, width: Math.min(1800, meta.width), format: 'webp', quality: 80 });
+    return { ...s, meta, ratio: +(meta.width / meta.height).toFixed(4), large: large.src };
+  }),
+);
+---
+
+<ul class:list={['gallery', { 'gallery--calm': calm }]}>
+  {
+    items.map((it, i) => (
+      <li style={`--ar:${it.ratio};--d:${(i % 4) * 80}ms`} data-reveal="image">
+        <a
+          href={it.large}
+          data-lightbox={group}
+          data-caption={[it.title, it.caption].filter(Boolean).join(' — ')}
+          data-alt={it.alt}
+        >
+          <Image
+            src={it.meta}
+            alt={it.alt}
+            widths={[400, 700, 1000, 1400]}
+            sizes="(max-width: 767px) 92vw, 46vw"
+            format="webp"
+            quality={74}
+            loading={eager && i < 2 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </a>
+        {it.title && <figcaption>{it.title}</figcaption>}
+      </li>
+    ))
+  }
+</ul>

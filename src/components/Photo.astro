@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { photo } from '../data/photos';
+
+interface Props {
+  /** chiave della foto, es. "lavori/atena-1" */
+  name: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  quality?: number;
+}
+
+const {
+  name,
+  alt,
+  sizes = '100vw',
+  widths = [480, 800, 1200, 1600],
+  loading = 'lazy',
+  fetchpriority,
+  class: className,
+  quality = 76,
+} = Astro.props;
+
+const src = photo(name);
+---
+
+<Image
+  src={src}
+  alt={alt}
+  widths={widths}
+  sizes={sizes}
+  format="webp"
+  quality={quality}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+  class={className}
+/>

@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Gallery from '../../components/Gallery.astro';
+import { categories, type WorkCategory } from '../../data/works';
+import { photo } from '../../data/photos';
+
+export function getStaticPaths() {
+  return categories.map((c, i) => ({
+    params: { slug: c.slug },
+    props: { cat: c, next: categories[(i + 1) % categories.length] },
+  }));
+}
+
+interface Props {
+  cat: WorkCategory;
+  next: WorkCategory;
+}
+const { cat, next } = Astro.props;
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Lavori', item: new URL('/lavori', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: cat.title },
+  ],
+};
+---
+
+<Layout
+  title={cat.title}
+  description={`${cat.summary} Opere di Claudia D'Andrea, paper artist.`}
+  image={photo(cat.cover)}
+  jsonLd={[breadcrumb]}
+>
+  <PageHero title={cat.title} crumbs={[['Lavori', '/lavori']]}>
+    <div class="prose muted" style="margin-top:1.8rem">
+      {cat.intro.map((p) => <p>{p}</p>)}
+    </div>
+  </PageHero>
+
+  <section class="is-night" style="padding-block:clamp(2rem,4vw,3.5rem)">
+    <div class="wrap">
+      <Gallery shots={cat.shots} group={`serie-${cat.slug}`} eager />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.5rem">
+      <a href="/lavori" class="cta">Tutti i lavori</a>
+      <a href={`/lavori/${next.slug}`} class="label inline-link">Prossima serie: {next.title}</a>
+    </div>
+  </section>
+</Layout>
