@@ -1,6 +1,7 @@
 /* Miglioramenti progressivi: il sito funziona anche senza questo file. */
 
 // ── Menu a schermo intero ──────────────────────────────────────────
+const en = document.documentElement.lang === 'en';
 const overlay = document.getElementById('menu');
 const openBtn = document.querySelector<HTMLElement>('[data-menu-open]');
 const closeBtn = document.querySelector<HTMLElement>('[data-menu-close]');
@@ -26,7 +27,8 @@ closeBtn?.addEventListener('click', (e) => {
   setMenu(false);
 });
 overlay?.addEventListener('click', (e) => {
-  if ((e.target as HTMLElement).closest('a[href^="/"]')) setMenu(false);
+  const t = e.target as HTMLElement;
+  if (t === overlay || t.closest('a[href^="/"]')) setMenu(false);
 });
 overlay?.addEventListener('keydown', (e) => {
   if (e.key !== 'Tab') return;
@@ -74,11 +76,11 @@ let lastFocus: HTMLElement | null = null;
 function build() {
   const d = document.createElement('dialog');
   d.className = 'lightbox';
-  d.setAttribute('aria-label', 'Galleria fotografica');
+  d.setAttribute('aria-label', en ? 'Photo gallery' : 'Galleria fotografica');
   d.innerHTML = `
-    <button type="button" class="lightbox__close" aria-label="Chiudi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
-    <button type="button" class="lightbox__prev" aria-label="Foto precedente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
-    <button type="button" class="lightbox__next" aria-label="Foto successiva"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
+    <button type="button" class="lightbox__close" aria-label="${en ? 'Close' : 'Chiudi'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"><path d="M5 5l14 14M19 5 5 19"/></svg></button>
+    <button type="button" class="lightbox__prev" aria-label="${en ? 'Previous photo' : 'Foto precedente'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button>
+    <button type="button" class="lightbox__next" aria-label="${en ? 'Next photo' : 'Foto successiva'}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button>
     <div class="lightbox__stage"><img alt="" /></div>
     <div class="lightbox__bar" aria-live="polite"><span class="lightbox__cap"></span></div>`;
   document.body.append(d);
@@ -133,4 +135,26 @@ document.addEventListener('click', (e) => {
   show(links.indexOf(a));
   document.documentElement.style.overflow = 'hidden';
   dlg.showModal();
+});
+
+// ── Caroselli orizzontali ──────────────────────────────────────────
+document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+  const track = root.querySelector<HTMLElement>('[data-carousel-track]');
+  const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+  const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+  if (!track || !prev || !next) return;
+  const step = () => Math.max(track.clientWidth * 0.8, 200);
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth - 2;
+    const scrollable = max > 0;
+    root.classList.toggle('is-scrollable', scrollable);
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max;
+  };
+  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  track.querySelectorAll('img').forEach((img) => img.addEventListener('load', update));
+  update();
 });

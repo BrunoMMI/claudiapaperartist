@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../config/site';
+import { tr, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const c = {
+  description: { it: "Informativa sulla privacy del sito di Claudia D'Andrea.", en: "Privacy policy of Claudia D'Andrea's website." },
+  draft: {
+    it: 'Le parti tra parentesi quadre devono essere completate dalla titolare del sito, e il testo definitivo va verificato da un professionista prima della pubblicazione.',
+    en: 'The parts in square brackets must be completed by the site owner, and the final text must be reviewed by a professional before publication.',
+  },
+  draftLabel: { it: 'Bozza tecnica.', en: 'Technical draft.' },
+  h1: { it: 'Titolare del trattamento', en: 'Data controller' },
+  p1: {
+    it: '[Nome o ragione sociale, indirizzo, partita IVA e recapito della titolare: da fornire.]',
+    en: '[Name or company name, address, VAT number and contact details of the owner: to be provided.]',
+  },
+  contact: { it: 'Contatto per la privacy: ', en: 'Privacy contact: ' },
+  h2: { it: 'Che cosa fa questo sito', en: 'What this site does' },
+  p2: {
+    it: 'Il sito non utilizza cookie di profilazione, strumenti di analisi o pubblicità e non installa cookie. I font sono ospitati sul sito stesso. Non vengono caricati script di terze parti.',
+    en: 'The site does not use profiling cookies, analytics or advertising, and does not install cookies. Fonts are hosted on the site itself. No third-party scripts are loaded.',
+  },
+  h3: { it: 'Modulo di contatto', en: 'Contact form' },
+  p3: {
+    it: 'Se scrivi tramite il modulo, vengono trattati nome, indirizzo email, tipo di richiesta e testo del messaggio, al solo scopo di risponderti. Il messaggio viene inoltrato alla casella email della titolare tramite il servizio di invio Resend. [Base giuridica, tempi di conservazione, trasferimenti extra-UE e diritti dell’interessato: da completare.]',
+    en: 'If you write through the form, your name, email address, type of request and message text are processed for the sole purpose of replying to you. The message is forwarded to the owner’s mailbox through the Resend delivery service. [Legal basis, retention periods, transfers outside the EU and data subject rights: to be completed.]',
+  },
+  h4: { it: 'Hosting', en: 'Hosting' },
+  p4: {
+    it: 'Il sito è ospitato su Vercel, che può registrare i dati tecnici di navigazione (come l’indirizzo IP) nei log del server. [Dettagli da completare.]',
+    en: 'The site is hosted on Vercel, which may record technical browsing data (such as the IP address) in its server logs. [Details to be completed.]',
+  },
+  h5: { it: 'I tuoi diritti', en: 'Your rights' },
+  p5: {
+    it: '[Elenco dei diritti e modalità di esercizio: da completare.]',
+    en: '[List of rights and how to exercise them: to be completed.]',
+  },
+};
+---
+
+<Layout title="Privacy" lang={lang} description={t(c.description)} noindex>
+  <PageHero title="Privacy" />
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="form-status" style="max-width:38rem;margin-bottom:2.5rem">
+        <strong>{t(c.draftLabel)}</strong> {t(c.draft)}
+      </div>
+      <div class="prose">
+        <h2 class="display-md" style="margin-bottom:1rem">{t(c.h1)}</h2>
+        <p>{t(c.p1)}</p>
+        <p>{t(c.contact)}<a href={`mailto:${site.email}`} class="inline-link">{site.email}</a></p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h2)}</h2>
+        <p>{t(c.p2)}</p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h3)}</h2>
+        <p>{t(c.p3)}</p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h4)}</h2>
+        <p>{t(c.p4)}</p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h5)}</h2>
+        <p>{t(c.p5)}</p>
+      </div>
+    </div>
+  </section>
+</Layout>

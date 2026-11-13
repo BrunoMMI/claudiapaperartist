@@ -1,85 +1,141 @@
 import type { Shot } from './photos';
+import type { L } from '../i18n';
 
 export interface Workshop {
   slug: string;
-  title: string;
-  place: string;
-  when: string;
-  text: string[];
+  title: L;
+  place: L;
+  when: L;
+  text: L<string[]>;
+  /** locandina: mostrata accanto al carosello, non dentro */
+  poster?: Shot;
   shots: Shot[];
 }
 
-/** Laboratori già realizzati. */
+/** Laboratori già realizzati. La prima foto di ogni serie è la locandina, quando disponibile. */
 export const workshops: Workshop[] = [
   {
     slug: 'urban-paper',
-    title: 'Urban paper: dalla carta al fiore',
-    place: 'Urban Nature 2026 · WWF 60 anni per la natura · Futuridea, Benevento (BN)',
-    when: '3 ottobre 2026',
-    text: [
-      'Un laboratorio esperienziale aperto a grandi e piccini per celebrare il valore del verde urbano e della biodiversità in città.',
-      'Guidati da Claudia D’Andrea e dall’apicoltore Armando Valerino, i partecipanti scoprono il mondo della carta: riciclano scarti e impreziosiscono l’impasto con semi di fiori spontanei e nettariferi, per conoscere da vicino il delicato universo degli impollinatori.',
-    ],
+    title: { it: 'Urban paper: dalla carta al fiore', en: 'Urban paper: from paper to flower' },
+    place: {
+      it: 'Urban Nature 2026 · WWF 60 anni per la natura · Futuridea, Benevento (BN)',
+      en: 'Urban Nature 2026 · WWF 60 years for nature · Futuridea, Benevento (BN)',
+    },
+    when: { it: '3 ottobre 2026', en: '3 October 2026' },
+    text: {
+      it: [
+        'Un laboratorio esperienziale aperto a grandi e piccini per celebrare il valore del verde urbano e della biodiversità in città.',
+        'Guidati da Claudia D’Andrea e dall’apicoltore Armando Valerino, i partecipanti scoprono il mondo della carta: riciclano scarti e impreziosiscono l’impasto con semi di fiori spontanei e nettariferi, per conoscere da vicino il delicato universo degli impollinatori.',
+      ],
+      en: [
+        'A hands-on workshop open to young and old, celebrating the value of urban greenery and biodiversity in the city.',
+        'Guided by Claudia D’Andrea and the beekeeper Armando Valerino, participants discover the world of paper: they recycle scraps and enrich the pulp with seeds of wild, nectar-bearing flowers, to get to know the delicate universe of pollinators up close.',
+      ],
+    },
     shots: [
-      { key: 'laboratori/urban-paper-3', alt: 'Il laboratorio Urban paper: una proiezione di fiori sullo schermo e i partecipanti seduti' },
-      { key: 'laboratori/urban-paper-2', alt: 'Claudia D’Andrea e una partecipante lavorano la carta a un tavolo' },
-      { key: 'laboratori/urban-paper-4', alt: 'La sala del laboratorio con il pubblico seduto' },
-      { key: 'laboratori/urban-paper-1', alt: 'Un kit con carta, semi e il programma dell’evento Urban Nature' },
+      { key: 'laboratori/urban-paper-1', alt: { it: 'Il laboratorio Urban paper: una proiezione di fiori sullo schermo e il pubblico seduto', en: 'The Urban paper workshop: a projection of flowers on the screen and the seated audience' } },
+      { key: 'laboratori/urban-paper-2', alt: { it: 'La sala del laboratorio con il pubblico seduto, grandi e piccini', en: 'The workshop room with the audience seated, young and old' } },
+      { key: 'laboratori/urban-paper-3', alt: { it: 'Tavolo del laboratorio con carta gialla, rotoli di cartone e decorazioni a nido d’ape', en: 'Workshop table with yellow paper, cardboard tubes and honeycomb decorations' } },
+      { key: 'laboratori/urban-paper-4', alt: { it: 'Tavolo del laboratorio con carta gialla, rotoli di cartone e le decorazioni dei bambini', en: 'Workshop table with yellow paper, cardboard tubes and the children’s decorations' } },
+      { key: 'laboratori/urban-paper-5', alt: { it: 'Un bambino e un adulto lavorano la carta gialla a un tavolo del laboratorio', en: 'A child and an adult working yellow paper at a workshop table' } },
+      { key: 'laboratori/urban-paper-6', alt: { it: 'Una partecipante lavora la carta a un tavolo, tra fogli e fiori colorati', en: 'A participant working paper at a table, among coloured sheets and flowers' } },
+      { key: 'laboratori/urban-paper-7', alt: { it: 'Un kit con carta, bustine di semi e il programma dell’evento Urban Nature', en: 'A kit with paper, seed packets and the programme of the Urban Nature event' } },
     ],
   },
   {
     slug: 'disegno-materia-luce',
-    title: 'Disegno, Materia, Luce – Attraverso la carta',
-    place: 'Laboratorio di cartapesta · Scuola d’Arte “Il Tempo dell’Arte” · Pro Loco “Vallata”, Piedimonte Matese (CE)',
-    when: 'giugno – luglio 2026',
-    text: [
-      'Un ciclo di incontri per bambini e ragazzi: si disegna, si modella e si costruisce, dalla struttura in cartone alla cartapesta.',
-    ],
+    title: { it: 'Disegno, Materia, Luce – Attraverso la carta', en: 'Drawing, Matter, Light – Through paper' },
+    place: {
+      it: 'Laboratorio di cartapesta · Scuola d’Arte “Il Tempo dell’Arte” · Pro Loco “Vallata”, Piedimonte Matese (CE)',
+      en: 'Papier-mâché workshop · “Il Tempo dell’Arte” Art School · Pro Loco “Vallata”, Piedimonte Matese (CE)',
+    },
+    when: { it: 'giugno – luglio 2026', en: 'June – July 2026' },
+    text: {
+      it: ['Un ciclo di incontri per bambini e ragazzi: si disegna, si modella e si costruisce; dalla struttura in cartone, alla tecnica della cartapesta.'],
+      en: ['A series of meetings for children and teenagers: they draw, model and build; from the cardboard structure to the papier-mâché technique.'],
+    },
+    poster: { key: 'laboratori/valata-1', alt: { it: 'Locandina del ciclo di incontri Disegno, Materia, Luce – Attraverso la carta', en: 'Poster of the series Drawing, Matter, Light – Through paper' } },
     shots: [
-      { key: 'laboratori/valata-8', alt: 'Locandina del ciclo di incontri Disegno, Materia, Luce – Attraverso la carta' },
-      { key: 'laboratori/valata-2', alt: 'Un fiore di cartone costruito a strati, tenuto tra le mani' },
-      { key: 'laboratori/valata-4', alt: 'Sagome di cartone montate in una struttura a spicchi' },
-      { key: 'laboratori/valata-5', alt: 'Una struttura in cartone rivestita di carta bianca a strisce' },
-      { key: 'laboratori/valata-1', alt: 'Un vaso di carta modellato sulla struttura di cartone' },
-      { key: 'laboratori/valata-6', alt: 'Mani che rifiniscono un vaso in cartapesta' },
-      { key: 'laboratori/valata-7', alt: 'Dettaglio della decorazione a pennello su un oggetto in cartapesta' },
+      { key: 'laboratori/valata-2', alt: { it: 'Una bambina rifinisce con il pennello un oggetto di cartapesta', en: 'A girl finishing a papier-mâché object with a brush' } },
+      { key: 'laboratori/valata-3', alt: { it: 'Due bambine lavorano la cartapesta a un tavolo bianco', en: 'Two girls working papier-mâché at a white table' } },
+      { key: 'laboratori/valata-4', alt: { it: 'Un bambino tiene in mano un oggetto di carta durante il laboratorio', en: 'A boy holding a paper object during the workshop' } },
+      { key: 'laboratori/valata-5', alt: { it: 'Un bambino al tavolo di lavoro, tra cartone, carta e colla', en: 'A boy at the worktable, among cardboard, paper and glue' } },
+      { key: 'laboratori/valata-6', alt: { it: 'Un bambino dipinge con il pennello un contenitore rivestito di carta', en: 'A boy painting a paper-covered container with a brush' } },
+      { key: 'laboratori/valata-7', alt: { it: 'Mani che rivestono di carta un vaso di cartone con il pennello', en: 'Hands covering a cardboard vase with paper using a brush' } },
+      { key: 'laboratori/valata-8', alt: { it: 'Mani che preparano la colla e i pezzetti di carta per la cartapesta', en: 'Hands preparing glue and small pieces of paper for papier-mâché' } },
+      { key: 'laboratori/valata-9', alt: { it: 'Un vaso di cartone rivestito di carta, rifinito con il pennello', en: 'A cardboard vase covered with paper, being finished with a brush' } },
+      { key: 'laboratori/valata-10', alt: { it: 'Un bambino lavora a una struttura di cartone', en: 'A boy working on a cardboard structure' } },
+      { key: 'laboratori/valata-11', alt: { it: 'Un bambino rifinisce una struttura di cartone su un tavolo bianco', en: 'A boy finishing a cardboard structure on a white table' } },
     ],
   },
   {
     slug: 'officina-della-carta',
-    title: 'Officina della carta – Luce agli scarti',
-    place: 'Morcone (BN)',
-    when: 'dicembre 2025',
-    text: [
-      'Gli scarti di carta tornano a brillare: ghirlande, alberelli piegati e piccole case di carta con una luce dentro.',
-    ],
+    title: { it: 'Officina della carta – Luce agli scarti', en: 'Paper workshop – Light to scraps' },
+    place: { it: 'Morcone (BN) · Rural Lab', en: 'Morcone (BN) · Rural Lab' },
+    when: { it: '13–14 dicembre 2025', en: '13–14 December 2025' },
+    text: {
+      it: ['Gli scarti di carta tornano a brillare: ghirlande, decorazioni e villaggi di Natale realizzati con diversi tipi di carta riciclata.'],
+      en: ['Paper scraps shine again: garlands, decorations and Christmas villages made from different kinds of recycled paper.'],
+    },
+    poster: { key: 'laboratori/officina-1', alt: { it: 'Locandina del laboratorio Officina della carta – Luce agli scarti, Morcone, 13–14 dicembre 2025', en: 'Poster of the workshop Paper workshop – Light to scraps, Morcone, 13–14 December 2025' } },
     shots: [
-      { key: 'laboratori/officina-2', alt: 'Una piccola casa di carta illuminata dall’interno' },
-      { key: 'laboratori/officina-1', alt: 'Ghirlanda di carta bianca appesa su fondo rosso' },
-      { key: 'laboratori/officina-3', alt: 'Alberello di carta piegata appeso a un filo' },
-      { key: 'laboratori/officina-4', alt: 'Decorazioni di carta e una lanterna bianca tra rametti verdi' },
-      { key: 'laboratori/officina-5', alt: 'Alberelli di carta piegata e una casetta di carta su un tavolo bianco' },
-      { key: 'laboratori/officina-6', alt: 'Lanterna di carta con la scritta Buon Natale illuminata da una luce calda' },
-      { key: 'laboratori/officina-7', alt: 'Ghirlanda di carta bianca su fondo rosso' },
+      { key: 'laboratori/officina-2', alt: { it: 'Lanterna di carta stropicciata illuminata, con rametti e fiorellini', en: 'A lit lantern of crumpled paper, with twigs and small flowers' } },
+      { key: 'laboratori/officina-3', alt: { it: 'Una casetta di carta traforata illuminata dall’interno', en: 'A cut-out paper house lit from the inside' } },
+      { key: 'laboratori/officina-4', alt: { it: 'Alberelli e decorazioni di carta piegata con cordino', en: 'Folded paper trees and decorations on twine' } },
+      { key: 'laboratori/officina-5', alt: { it: 'Alberello di carta piegata con fiocco bianco', en: 'Folded paper tree with a white bow' } },
+      { key: 'laboratori/officina-6', alt: { it: 'Due alberelli di carta piegata con un fiocco rosso', en: 'Two folded paper trees with a red bow' } },
+      { key: 'laboratori/officina-7', alt: { it: 'Lanterna di carta con la scritta Buon Natale illuminata da una luce calda', en: 'Paper lantern with the words Buon Natale lit by a warm light' } },
+      { key: 'laboratori/officina-8', alt: { it: 'Una casetta di carta illuminata e alberelli di carta tra rametti verdi', en: 'A lit paper house and paper trees among green twigs' } },
+      { key: 'laboratori/officina-9', alt: { it: 'Casetta di carta con le finestre illuminate', en: 'Paper house with its windows lit' } },
+      { key: 'laboratori/officina-10', alt: { it: 'Alberelli e decorazioni di carta piegata, in toni di grigio e avorio', en: 'Folded paper trees and decorations in shades of grey and ivory' } },
+      { key: 'laboratori/officina-11', alt: { it: 'Una casetta di carta e decorazioni natalizie sul tavolo', en: 'A paper house and Christmas decorations on the table' } },
+      { key: 'laboratori/officina-12', alt: { it: 'Bambini al lavoro su un tavolo pieno di cartoncini, forbici e decorazioni', en: 'Children at work at a table full of card, scissors and decorations' } },
+      { key: 'laboratori/officina-13', alt: { it: 'Bambini che ritagliano e assemblano decorazioni natalizie di carta', en: 'Children cutting out and assembling paper Christmas decorations' } },
+      { key: 'laboratori/officina-14', alt: { it: 'Ghirlanda di carta bianca con pompon rossi e verdi, ancora in lavorazione', en: 'White paper garland with red and green pompoms, still in progress' } },
+      { key: 'laboratori/officina-15', alt: { it: 'Ghirlanda di carta bianca con pompon rossi e verdi appesa a una porta', en: 'White paper garland with red and green pompoms hanging on a door' } },
     ],
   },
 ];
 
+/** Laboratorio proposto per il periodo natalizio (sezione a parte nella pagina Laboratori). */
+export const christmas = {
+  title: 'Christmas lights',
+  text: {
+    it: 'Realizzazione di ghirlande, addobbi e decorazioni natalizie in carta.',
+    en: 'Making paper garlands, ornaments and Christmas decorations.',
+  } satisfies L,
+  meta: { it: 'Periodo natalizio · max 10 persone', en: 'Christmas season · max 10 people' } satisfies L,
+  shots: [
+    { key: 'laboratori/officina-3', alt: { it: 'Una casetta di carta traforata illuminata dall’interno', en: 'A cut-out paper house lit from the inside' } },
+    { key: 'laboratori/officina-15', alt: { it: 'Ghirlanda di carta bianca con pompon rossi e verdi appesa a una porta', en: 'White paper garland with red and green pompoms hanging on a door' } },
+    { key: 'laboratori/officina-4', alt: { it: 'Alberelli e decorazioni di carta piegata con cordino', en: 'Folded paper trees and decorations on twine' } },
+  ] satisfies Shot[],
+};
+
 /** Esempi di laboratori proponibili. I luoghi vanno concordati: non sono ancora definiti. */
-export const offers = [
+export const offers: { title: L; text: L; meta: L }[] = [
   {
-    title: 'Carta e luce',
-    text: 'Due giornate per costruire una piccola installazione luminosa in carta, dal progetto al montaggio.',
-    meta: 'Weekend · max 8 persone',
+    title: { it: 'Carta e luce', en: 'Paper and light' },
+    text: {
+      it: 'Due giornate per costruire una piccola installazione luminosa in carta, dal progetto al montaggio.',
+      en: 'Two days to build a small paper light installation, from design to assembly.',
+    },
+    meta: { it: 'Weekend · max 8 persone', en: 'Weekend · max 8 people' },
   },
   {
-    title: 'Fiori di carta',
-    text: 'Introduzione al taglio e alla modellatura della carta per creare corolle e foglie, con diversi tipi di carta.',
-    meta: 'Mezza giornata · max 12 persone',
+    title: { it: 'Fiori di carta', en: 'Paper flowers' },
+    text: {
+      it: 'Introduzione al taglio e alla modellatura della carta per creare corolle e foglie, con diversi tipi di carta.',
+      en: 'An introduction to cutting and shaping paper to create corollas and leaves, using different kinds of paper.',
+    },
+    meta: { it: 'Mezza giornata · max 12 persone', en: 'Half a day · max 12 people' },
   },
   {
-    title: 'Su misura per team',
-    text: 'Laboratori privati per aziende e gruppi, ospitati in studio o nel vostro spazio.',
-    meta: 'Su richiesta · durata variabile',
+    title: { it: 'Su misura per team', en: 'Tailored for teams' },
+    text: {
+      it: 'Laboratori privati per aziende e gruppi, ospitati in studio o nel vostro spazio.',
+      en: 'Private workshops for companies and groups, hosted in the studio or in your own space.',
+    },
+    meta: { it: 'Su richiesta · durata variabile', en: 'On request · variable length' },
   },
 ];

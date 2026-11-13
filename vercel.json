@@ -2,14 +2,90 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/about-me", "destination": "/about", "permanent": true },
-    { "source": "/about-my-art", "destination": "/about#la-mia-arte", "permanent": true },
-    { "source": "/my-artworks", "destination": "/lavori", "permanent": true },
-    { "source": "/sculptures", "destination": "/lavori/sculture", "permanent": true },
-    { "source": "/wall-sculptures", "destination": "/lavori/sculture", "permanent": true },
-    { "source": "/light", "destination": "/lavori/sculture", "permanent": true },
-    { "source": "/paper-lamps", "destination": "/lavori/paper-lamps", "permanent": true },
-    { "source": "/exhibitions", "destination": "/mostre", "permanent": true },
-    { "source": "/contact", "destination": "/contatti", "permanent": true }
+    {
+      "source": "/about-me",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/about-my-art",
+      "destination": "/about#la-mia-arte",
+      "permanent": true
+    },
+    {
+      "source": "/my-artworks",
+      "destination": "/lavori",
+      "permanent": true
+    },
+    {
+      "source": "/lavori/installazioni-luminose",
+      "destination": "/lavori#installazioni-luminose",
+      "permanent": true
+    },
+    {
+      "source": "/lavori/sculture",
+      "destination": "/lavori#sculture",
+      "permanent": true
+    },
+    {
+      "source": "/lavori/paper-lamps",
+      "destination": "/lavori#paper-lamps",
+      "permanent": true
+    },
+    {
+      "source": "/sculptures",
+      "destination": "/lavori#sculture",
+      "permanent": true
+    },
+    {
+      "source": "/wall-sculptures",
+      "destination": "/lavori#sculture",
+      "permanent": true
+    },
+    {
+      "source": "/light",
+      "destination": "/lavori#sculture",
+      "permanent": true
+    },
+    {
+      "source": "/paper-lamps",
+      "destination": "/lavori#paper-lamps",
+      "permanent": true
+    },
+    {
+      "source": "/exhibitions",
+      "destination": "/mostre",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/contatti",
+      "permanent": true
+    },
+    {
+      "source": "/en/lavori",
+      "destination": "/en/works",
+      "permanent": true
+    },
+    {
+      "source": "/en/servizi",
+      "destination": "/en/services",
+      "permanent": true
+    },
+    {
+      "source": "/en/laboratori",
+      "destination": "/en/workshops",
+      "permanent": true
+    },
+    {
+      "source": "/en/mostre",
+      "destination": "/en/exhibitions",
+      "permanent": true
+    },
+    {
+      "source": "/en/contatti",
+      "destination": "/en/contact",
+      "permanent": true
+    }
   ]
 }

@@ -1,6 +1,7 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import { photo, type Shot } from '../data/photos';
+import { tr, type Lang } from '../i18n';
 
 interface Props {
   shots: Shot[];
@@ -10,15 +11,16 @@ interface Props {
   calm?: boolean;
   /** primo elemento caricato subito (se la galleria è sopra la piega) */
   eager?: boolean;
+  lang?: Lang;
 }
 
-const { shots, group, calm = false, eager = false } = Astro.props;
+const { shots, group, calm = false, eager = false, lang = 'it' } = Astro.props;
 
 const items = await Promise.all(
   shots.map(async (s) => {
     const meta = photo(s.key);
     const large = await getImage({ src: meta, width: Math.min(1800, meta.width), format: 'webp', quality: 80 });
-    return { ...s, meta, ratio: +(meta.width / meta.height).toFixed(4), large: large.src };
+    return { ...s, alt: tr(s.alt, lang), meta, ratio: +(meta.width / meta.height).toFixed(4), large: large.src };
   }),
 );
 ---

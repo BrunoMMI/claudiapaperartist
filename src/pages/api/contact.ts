@@ -13,22 +13,40 @@ const clean = (v: FormDataEntryValue | null, max: number) =>
     .trim()
     .slice(0, max);
 
+const messages = {
+  it: {
+    invalid: 'Richiesta non valida.',
+    fields: 'Controlla i campi: nome, email, messaggio e consenso privacy sono obbligatori.',
+    inactive: 'Il modulo non è ancora attivo. Scrivi direttamente via email.',
+    failed: 'Non è stato possibile inviare il messaggio. Riprova tra poco oppure scrivi via email.',
+  },
+  en: {
+    invalid: 'Invalid request.',
+    fields: 'Please check the fields: name, email, message and privacy consent are required.',
+    inactive: 'The form is not active yet. Please write to me directly by email.',
+    failed: 'The message could not be sent. Please try again shortly or write by email.',
+  },
+};
+
 export const POST: APIRoute = async ({ request, redirect }) => {
   const wantsJson = (request.headers.get('accept') ?? '').includes('application/json');
+  let lang: 'it' | 'en' = 'it';
   const reply = (ok: boolean, status: number, error?: string) =>
     wantsJson
       ? new Response(JSON.stringify(ok ? { ok } : { ok, error }), {
           status,
           headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' },
         })
-      : redirect(`/contatti?stato=${ok ? 'ok' : 'errore'}#modulo`, 303);
+      : redirect(`${lang === 'en' ? '/en/contact' : '/contatti'}?stato=${ok ? 'ok' : 'errore'}#modulo`, 303);
 
   let form: FormData;
   try {
     form = await request.formData();
   } catch {
-    return reply(false, 400, 'Richiesta non valida.');
+    return reply(false, 400, messages.it.invalid);
   }
+  lang = form.get('lang') === 'en' ? 'en' : 'it';
+  const m = messages[lang];
 
   // Anti-spam: campo trappola compilato, oppure invio troppo rapido (< 3 s dal caricamento)
   const tooFast = Number(form.get('t')) > 0 && Date.now() - Number(form.get('t')) < 3000;
@@ -41,12 +59,12 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   const consenso = form.get('privacy') === 'si';
 
   if (nome.length < 2 || !EMAIL_RE.test(email) || messaggio.length < 10 || !consenso || /[\r\n]/.test(email)) {
-    return reply(false, 422, 'Controlla i campi: nome, email, messaggio e consenso privacy sono obbligatori.');
+    return reply(false, 422, m.fields);
   }
 
   if (!RESEND_API_KEY || !CONTACT_TO_EMAIL) {
     console.error('[contact] RESEND_API_KEY / CONTACT_TO_EMAIL non configurate');
-    return reply(false, 503, 'Il modulo non è ancora attivo. Scrivi direttamente via email.');
+    return reply(false, 503, m.inactive);
   }
 
   const res = await fetch('https://api.resend.com/emails', {
@@ -63,7 +81,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
   if (!res?.ok) {
     console.error('[contact] invio non riuscito', res?.status, await res?.text().catch(() => ''));
-    return reply(false, 502, 'Non è stato possibile inviare il messaggio. Riprova tra poco oppure scrivi via email.');
+    return reply(false, 502, m.failed);
   }
   return reply(true, 200);
 };

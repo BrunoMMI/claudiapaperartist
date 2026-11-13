@@ -1,0 +1,176 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+import { featured } from '../data/works';
+import { photo } from '../data/photos';
+import { route, tr, ui, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const icons = ['sculpture', 'light', 'event', 'workshop'] as const;
+
+const copy = {
+  description: {
+    it: "Sculture di carta, installazioni luminose, allestimenti ed eventi su misura, laboratori creativi. Il portfolio di Claudia D'Andrea, paper artist.",
+    en: "Paper sculptures, light installations, bespoke set designs and events, creative workshops. The portfolio of Claudia D'Andrea, paper artist.",
+  },
+  heroAlt: {
+    it: 'Atena, scultura di carta bianca con una chioma di rami, su fondo nero',
+    en: 'Athena, a white paper sculpture with a crown of branches, on a black background',
+  },
+  kicker1: { it: 'Sculture di carta – Installazioni luminose', en: 'Paper sculptures – Light installations' },
+  kicker2: { it: 'Allestimenti – Eventi – Laboratori', en: 'Set designs – Events – Workshops' },
+  title: { it: 'Do forma alla luce e alla carta.', en: 'I give shape to light and paper.' },
+  cta: { it: 'Scopri il mio lavoro', en: 'Discover my work' },
+  intro: {
+    it: 'Realizzo sculture di carta, installazioni luminose e allestimenti su misura per spazi che vogliono emozionare.',
+    en: 'I create paper sculptures, light installations and bespoke set designs for spaces that want to move people.',
+  },
+  more: { it: 'Scopri di più', en: 'Learn more' },
+  introAlt: {
+    it: 'Light No. 5, scultura da parete in carta bianca con una piega diagonale su fondo blu notte',
+    en: 'Light No. 5, a white paper wall sculpture with a diagonal fold on a midnight-blue background',
+  },
+  services: { it: 'Cosa posso fare per te', en: 'What I can do for you' },
+  selection: { it: 'Selezione lavori', en: 'Selected works' },
+  motto: { it: 'Il mio motto', en: 'My motto' },
+  quote: {
+    it: 'Dare nuova luce alla carta e, attraverso essa, alle persone.',
+    en: 'To give new light to paper and, through it, to people.',
+  },
+  approach: { it: 'Il mio approccio', en: 'My approach' },
+  labKicker: { it: 'Laboratori e workshop', en: 'Workshops' },
+  labTitle: {
+    it: 'Esperienze creative per imparare, sperimentare e lasciarsi ispirare dalla carta.',
+    en: 'Creative experiences to learn, experiment and be inspired by paper.',
+  },
+  labCta: { it: 'Scopri i laboratori', en: 'Discover the workshops' },
+  labAlt: {
+    it: 'Un laboratorio di carta: mani al lavoro su un tavolo di legno tra carta, rotoli e modelli ritagliati',
+    en: 'A paper workshop: hands at work on a wooden table among paper, rolls and cut-out patterns',
+  },
+};
+
+const link = (l: { route: 'works' | 'services' | 'workshops'; hash?: string }) => route(l.route, lang, l.hash);
+---
+
+<Layout tone="light" lang={lang} description={t(copy.description)} image={photo('lavori/atena-1')}>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__media">
+      <Photo
+        name="lavori/atena-1"
+        alt={t(copy.heroAlt)}
+        sizes="(min-width: 768px) 62vw, 100vw"
+        widths={[640, 960, 1280, 1600]}
+        loading="eager"
+        fetchpriority="high"
+        quality={80}
+      />
+    </div>
+    <div class="hero__shade"></div>
+    <div class="wrap hero__inner">
+      <p class="hero__kicker label">
+        <span>{t(copy.kicker1)}</span>
+        <span>{t(copy.kicker2)}</span>
+      </p>
+      <h1 id="hero-title" class="display-xl">{t(copy.title)}</h1>
+      <div><a href={route('works', lang)} class="cta">{t(copy.cta)}</a></div>
+    </div>
+    <a href="#intro" class="hero__scroll" aria-label={t(ui.scroll)}>
+      <span>Scroll</span><i></i>
+    </a>
+  </section>
+
+  <!-- INTRO -->
+  <section id="intro" class="section">
+    <div class="wrap split split--wide-text">
+      <div data-reveal>
+        <p class="label muted" style="margin-bottom:1.6rem">Claudia D'Andrea · Paper Artist</p>
+        <p class="lede" style="max-width:26ch">{t(copy.intro)}</p>
+        <div style="margin-top:2.2rem"><a href={route('works', lang)} class="cta">{t(copy.more)}</a></div>
+      </div>
+      <div data-reveal="image" style="--d:150ms;justify-self:center;width:min(100%,26rem)">
+        <Photo name="lavori/light-5" alt={t(copy.introAlt)} sizes="(min-width: 860px) 26rem, 90vw" widths={[420, 640, 900]} />
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section class="section-tight" aria-labelledby="servizi-title" style="padding-top:0">
+    <div class="wrap">
+      <h2 id="servizi-title" class="label" style="text-align:center">{t(copy.services)}</h2>
+      <div class="services">
+        {
+          services.map((s, i) => (
+            <a href={link(s.homeLink)} class="service" data-reveal style={`--d:${i * 90}ms`}>
+              <Icon name={icons[i]} />
+              <h3 class="label" style="font-family:var(--font-sans);font-weight:400">{t(s.title)}</h3>
+              <p>{t(s.short)}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SELEZIONE LAVORI -->
+  <section class="section" aria-labelledby="selezione-title" style="padding-bottom:clamp(3rem,6vw,5rem)">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:1.6rem">
+      <h2 id="selezione-title" class="label">{t(copy.selection)}</h2>
+      <a href={route('works', lang)} class="label inline-link">{t(ui.seeAll)}</a>
+    </div>
+    <ul class="selection" style="margin:0;padding:0 clamp(0rem,0.5vw,0.4rem)">
+      {
+        featured.map((f, i) => (
+          <li data-reveal style={`--d:${i * 70}ms`}>
+            <a href={f.to === 'allestimenti-ed-eventi' ? route('services', lang, f.to) : route('works', lang, f.to)}>
+              <figure>
+                <div class="selection__img">
+                  <Photo name={f.key} alt={t(f.alt)} sizes="(min-width: 900px) 20vw, 50vw" widths={[360, 560, 800]} />
+                </div>
+                <figcaption>
+                  <span class="label">{t(f.kind)}</span>
+                  <span>{t(f.title)}</span>
+                </figcaption>
+              </figure>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- CITAZIONE -->
+  <section class="band band--dark" aria-label={t(copy.motto)}>
+    <div class="band__img" aria-hidden="true">
+      <Photo name="sfondi/fiore-di-carta" alt="" sizes="100vw" widths={[800, 1400, 2000]} />
+    </div>
+    <div class="wrap band__inner">
+      <blockquote data-reveal>
+        <p class="display-lg">{t(copy.quote)}</p>
+      </blockquote>
+      <a href={route('about', lang, 'la-mia-arte')} class="cta" data-reveal style="--d:200ms">{t(copy.approach)}</a>
+    </div>
+  </section>
+
+  <!-- LABORATORI -->
+  <section class="section" aria-labelledby="lab-title">
+    <div class="wrap split">
+      <div data-reveal>
+        <p class="label muted" style="margin-bottom:1.6rem">{t(copy.labKicker)}</p>
+        <h2 id="lab-title" class="display-md" style="max-width:22ch">{t(copy.labTitle)}</h2>
+        <div style="margin-top:2.2rem"><a href={route('workshops', lang)} class="cta">{t(copy.labCta)}</a></div>
+      </div>
+      <div data-reveal="image" style="--d:150ms">
+        <Photo name="home/laboratori" alt={t(copy.labAlt)} sizes="(min-width: 860px) 46vw, 92vw" widths={[500, 800]} />
+      </div>
+    </div>
+  </section>
+</Layout>

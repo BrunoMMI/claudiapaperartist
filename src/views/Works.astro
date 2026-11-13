@@ -1,0 +1,94 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Carousel from '../components/Carousel.astro';
+import { categories } from '../data/works';
+import { photo } from '../data/photos';
+import { tr, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const copy = {
+  title: { it: 'Lavori', en: 'Works' },
+  seo: { it: 'Sculture di carta e installazioni luminose', en: 'Paper sculptures and light installations' },
+  description: {
+    it: "Installazioni luminose, sculptures e paper lamps: una selezione delle opere in carta di Claudia D'Andrea.",
+    en: "Light installations, sculptures and paper lamps: a selection of paper works by Claudia D'Andrea.",
+  },
+  lead: {
+    it: 'Una selezione di opere divise per categorie e tecniche utilizzate, un viaggio in un mondo fatto di luce, forme, materiali e sensazioni.',
+    en: 'A selection of works divided by category and technique, a journey through a world of light, shapes, materials and sensations.',
+  },
+  categories: { it: 'Categorie', en: 'Categories' },
+  lightSeries: {
+    it: 'Serie Light',
+    en: 'Light series',
+  },
+  lightText: {
+    it: 'Sei sculture da parete in carta, numerate.',
+    en: 'Six numbered paper wall sculptures.',
+  },
+};
+
+const ld = [
+  {
+    '@type': 'CollectionPage',
+    name: t(copy.seo),
+    description: t(copy.description),
+    inLanguage: lang === 'it' ? 'it-IT' : 'en-GB',
+    author: { '@type': 'Person', name: "Claudia D'Andrea" },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: categories.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: { '@type': 'CreativeWork', name: t(c.title), description: t(c.summary), creator: { '@type': 'Person', name: "Claudia D'Andrea" } },
+      })),
+    },
+  },
+];
+const isLight = (key: string) => key.startsWith('lavori/light-');
+---
+
+<Layout title={t(copy.seo)} lang={lang} description={t(copy.description)} image={photo('lavori/autunno')} jsonLd={ld}>
+  <PageHero title={t(copy.title)} lead={t(copy.lead)} />
+
+  <nav class="wrap cat-nav label" aria-label={t(copy.categories)}>
+    {categories.map((c) => <a href={`#${c.slug}`}>{t(c.title)}</a>)}
+  </nav>
+
+  <div class="is-night section">
+    {
+      categories.map((c) => {
+        const light = c.shots.filter((s) => isLight(s.key));
+        const main = c.shots.filter((s) => !isLight(s.key));
+        return (
+          <section id={c.slug} class="cat-block" aria-labelledby={`h-${c.slug}`}>
+            <div class="wrap cat-head">
+              <h2 id={`h-${c.slug}`} class="display-lg" data-reveal>{t(c.title)}</h2>
+              <div data-reveal style="--d:100ms">
+                <p class="muted" style="max-width:30rem">{t(c.summary)}</p>
+              </div>
+            </div>
+            <div class="wrap">
+              <Carousel shots={main} group={`lavori-${c.slug}`} lang={lang} label={t(c.title)} />
+            </div>
+            {light.length > 0 && (
+              <div class="wrap" style="margin-top:clamp(3rem,6vw,5rem)">
+                <div class="cat-head" style="margin-bottom:1.4rem">
+                  <h3 class="display-md" data-reveal>{t(copy.lightSeries)}</h3>
+                  <p class="muted" data-reveal style="--d:100ms">{t(copy.lightText)}</p>
+                </div>
+                <Carousel shots={light} group={`lavori-${c.slug}-light`} lang={lang} label={t(copy.lightSeries)} />
+              </div>
+            )}
+          </section>
+        );
+      })
+    }
+  </div>
+</Layout>

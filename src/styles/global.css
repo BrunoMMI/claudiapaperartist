@@ -242,8 +242,9 @@
   gap: 0.85rem;
 }
 .brand img {
-  width: 2.7rem;
+  width: 3.4rem;
   height: auto;
+  overflow: visible;
 }
 .brand__text {
   display: grid;
@@ -315,21 +316,20 @@
   height: 1.1rem;
 }
 
-/* ── Menu a tutto schermo (funziona anche senza JavaScript, via :target) ── */
+/* ── Menu a tendina (pannello laterale; funziona anche senza JavaScript, via :target) ── */
 .menu-overlay {
   position: fixed;
   inset: 0;
   z-index: 60;
-  display: grid;
-  align-content: center;
-  padding: 6rem var(--gutter) 3rem;
-  background: var(--color-night);
-  color: var(--color-ivory);
+  display: flex;
+  justify-content: flex-end;
+  background: rgb(9 17 23 / 0.5);
+  backdrop-filter: blur(3px);
   visibility: hidden;
   opacity: 0;
   transition:
-    opacity 0.5s var(--ease-soft),
-    visibility 0s linear 0.5s;
+    opacity 0.4s var(--ease-soft),
+    visibility 0s linear 0.4s;
 }
 .menu-overlay:target,
 .menu-overlay.is-open {
@@ -337,52 +337,134 @@
   opacity: 1;
   transition-delay: 0s;
 }
-.menu-overlay__close {
-  position: absolute;
-  top: 1.35rem;
-  right: var(--gutter);
+.menu-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(22rem, 100%);
+  height: 100%;
+  overflow-y: auto;
+  padding: 1.35rem clamp(1.5rem, 4vw, 2.2rem) 2rem;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  box-shadow: -1.5rem 0 3rem rgb(0 0 0 / 0.12);
+  transform: translateX(2.5rem);
+  transition: transform 0.5s var(--ease-soft);
 }
-.menu-overlay ul {
+.menu-overlay:target .menu-panel,
+.menu-overlay.is-open .menu-panel {
+  transform: none;
+}
+.menu-panel__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--color-mist);
+}
+.menu-btn--small {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+.menu-panel nav {
+  margin-block: auto;
+  padding-block: 1.6rem;
+}
+.menu-panel ul {
   display: grid;
-  gap: 0.2rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.menu-overlay li a {
-  display: inline-block;
-  padding-block: 0.15rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.1rem, 6.2vw, 4.2rem);
-  line-height: 1.15;
-  opacity: 0.92;
-  transition: opacity 0.3s, transform 0.5s var(--ease-soft);
+.menu-panel li {
+  border-bottom: 1px solid var(--color-mist);
 }
-.menu-overlay li a:hover {
-  opacity: 1;
-  transform: translateX(0.6rem);
-}
-.menu-overlay li a[aria-current='page'] {
-  font-style: italic;
-}
-.menu-overlay__foot {
+.menu-panel li a {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 2.5rem;
-  margin-top: clamp(2rem, 6vh, 4rem);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.85rem 0.1rem;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-stone);
+  transition:
+    color 0.3s,
+    padding 0.4s var(--ease-soft);
+}
+.menu-panel li a::after {
+  content: '→';
+  opacity: 0;
+  transform: translateX(-0.4rem);
+  transition:
+    opacity 0.3s,
+    transform 0.4s var(--ease-soft);
+}
+.menu-panel li a:hover,
+.menu-panel li a[aria-current='page'] {
+  color: var(--color-ink);
+}
+.menu-panel li a:hover {
+  padding-left: 0.5rem;
+}
+.menu-panel li a:hover::after,
+.menu-panel li a[aria-current='page']::after {
+  opacity: 1;
+  transform: none;
+}
+.menu-panel__foot {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-stone);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .menu-overlay li {
+  .menu-panel li {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(8px);
   }
   .menu-overlay:target li,
   .menu-overlay.is-open li {
     opacity: 1;
     transform: none;
     transition:
-      opacity 0.6s var(--ease-soft) calc(var(--i, 0) * 60ms + 150ms),
-      transform 0.6s var(--ease-soft) calc(var(--i, 0) * 60ms + 150ms);
+      opacity 0.5s var(--ease-soft) calc(var(--i, 0) * 45ms + 150ms),
+      transform 0.5s var(--ease-soft) calc(var(--i, 0) * 45ms + 150ms);
+  }
+}
+
+/* ── Selettore di lingua ── */
+.lang-switch {
+  display: none;
+  align-items: center;
+  gap: 0.15rem;
+  margin-left: clamp(0.5rem, 1.6vw, 1.6rem);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+}
+.lang-switch a {
+  padding: 0.35rem 0.45rem;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.lang-switch a:hover,
+.lang-switch a[aria-current] {
+  opacity: 1;
+}
+.lang-switch a[aria-current] {
+  border-bottom: 1px solid currentColor;
+}
+.lang-switch--panel {
+  display: flex;
+  margin: 0 0 0.6rem -0.45rem;
+}
+@media (min-width: 1024px) {
+  .lang-switch {
+    display: flex;
+  }
+  .lang-switch--panel {
+    display: none;
   }
 }
 
@@ -1217,4 +1299,141 @@ select.input {
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* ── Navigazione tra le categorie (pagina Lavori) ── */
+.cat-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2rem;
+  padding-bottom: 2.4rem;
+}
+.cat-nav a {
+  padding-block: 0.3rem;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.cat-nav a:hover {
+  border-color: currentColor;
+}
+.cat-block {
+  scroll-margin-top: 1.5rem;
+}
+
+/* ── Banda della citazione su fondo scuro ── */
+.band--dark {
+  background: #2a2c33;
+  color: var(--color-ivory);
+}
+.band--dark::after {
+  background: linear-gradient(90deg, rgb(42 44 51 / 0.55) 0%, rgb(42 44 51 / 0.2) 50%, rgb(42 44 51 / 0) 80%);
+}
+.band--dark .band__img img {
+  object-position: 70% 50%;
+}
+.band--dark .cta {
+  color: var(--color-ivory);
+}
+
+.service-row__gallery {
+  grid-column: 1 / -1;
+}
+
+/* ── Laboratori: locandina accanto a un carosello orizzontale ── */
+.lab-media {
+  display: grid;
+  gap: 1.6rem 2.4rem;
+  align-items: start;
+  margin-top: 2.4rem;
+}
+@media (min-width: 860px) {
+  .lab-media--poster {
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+  }
+}
+.lab-poster {
+  margin: 0;
+  width: min(100%, 16rem);
+}
+.lab-poster a {
+  display: block;
+  overflow: hidden;
+  background: var(--color-mist);
+}
+.lab-poster img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.8s var(--ease-soft);
+}
+.lab-poster a:hover img {
+  transform: scale(1.03);
+}
+.carousel {
+  position: relative;
+  min-width: 0;
+}
+.carousel__track {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 0;
+  padding-bottom: 0.4rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-stone) transparent;
+}
+.carousel__track:focus-visible {
+  outline-offset: 3px;
+}
+.carousel__item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  overflow: hidden;
+  background: var(--color-mist);
+}
+.carousel__item img {
+  width: auto;
+  max-width: none;
+  height: clamp(15rem, 34vw, 26rem);
+  transition: transform 0.8s var(--ease-soft);
+}
+.carousel__item:hover img {
+  transform: scale(1.03);
+}
+.carousel__nav {
+  display: none;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+.carousel.is-scrollable .carousel__nav {
+  display: flex;
+}
+.carousel__btn {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+.carousel__btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+.carousel__btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Caroselli su fondo scuro (pagina Lavori) */
+.is-night .carousel__item {
+  background: var(--color-night-soft);
+}
+.is-night .round-btn:hover {
+  background: var(--color-ivory);
+  color: var(--color-night);
+}
+
+/* Email lunga nei contatti: su telefono resta su una riga, senza spezzare il dominio */
+.contact-email {
+  font-size: clamp(1.05rem, 5.4vw, 1.9rem);
+  overflow-wrap: anywhere;
 }

@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import Gallery from '../components/Gallery.astro';
+import { services } from '../data/services';
+import { photo } from '../data/photos';
+import { route, tr, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const copy = {
+  title: { it: 'Servizi', en: 'Services' },
+  heading: { it: 'Cosa posso fare per te', en: 'What I can do for you' },
+  seo: { it: 'Servizi su misura: opere, allestimenti, eventi', en: 'Bespoke works, set designs and events' },
+  description: {
+    it: 'Sculture di carta su misura, installazioni luminose, allestimenti ed eventi, laboratori creativi per adulti e bambini.',
+    en: 'Bespoke paper sculptures, light installations, set designs and events, creative workshops for adults and children.',
+  },
+  lead: {
+    it: 'Opere uniche, atmosfere di luce, scenografie e momenti da vivere attraverso forme e sensazioni. Ogni progetto nasce dal dialogo con lo spazio e con chi lo abita.',
+    en: 'Unique works, atmospheres of light, scenography and moments to be lived through shapes and sensations. Every project grows from a dialogue with the space and with the people who live in it.',
+  },
+  project: { it: 'Hai un progetto in mente?', en: 'Have a project in mind?' },
+  tell: { it: 'Raccontamelo', en: 'Tell me about it' },
+};
+const ld = [
+  {
+    '@type': 'ItemList',
+    itemListElement: services.map((sv, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: tr(sv.title, lang),
+        description: tr(sv.long, lang),
+        provider: { '@type': 'Person', name: "Claudia D'Andrea" },
+        serviceType: tr(sv.title, lang),
+      },
+    })),
+  },
+];
+---
+
+<Layout title={t(copy.seo)} lang={lang} description={t(copy.description)} image={photo('lavori/inverno')} jsonLd={ld}>
+  <PageHero title={t(copy.heading)} lead={t(copy.lead)} />
+
+  <div class="wrap">
+    {
+      services.map((s) => (
+        <section id={s.id} class="service-row" aria-labelledby={`t-${s.id}`}>
+          <div data-reveal>
+            <h2 id={`t-${s.id}`} class="display-lg">{t(s.title)}</h2>
+            <p class="prose muted" style="margin-top:1.4rem">{t(s.long)}</p>
+            <p style="margin-top:2rem">
+              <a href={route(s.cta.route, lang, s.cta.hash)} class="cta">{t(s.cta.label)}</a>
+            </p>
+          </div>
+          <div class="service-row__img" data-reveal="image" style="--d:120ms">
+            <Photo name={s.photo} alt={t(s.alt)} sizes="(min-width: 860px) 46vw, 92vw" widths={[500, 800, 1200]} />
+          </div>
+          {s.gallery && (
+            <div class="service-row__gallery">
+              <Gallery shots={s.gallery} group={`servizi-${s.id}`} lang={lang} calm />
+            </div>
+          )}
+        </section>
+      ))
+    }
+  </div>
+
+  <section class="section">
+    <div class="wrap" style="display:grid;gap:1.8rem;justify-items:start">
+      <p class="display-md" style="max-width:24ch">{t(copy.project)}</p>
+      <a href={route('contact', lang)} class="cta">{t(copy.tell)}</a>
+    </div>
+  </section>
+</Layout>

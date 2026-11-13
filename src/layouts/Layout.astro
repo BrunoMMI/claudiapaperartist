@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site, SITE_URL, INDEXABLE } from '../config/site';
+import { alternate, ui, tr, type Lang } from '../i18n';
 import ogDefault from '../assets/og-default.jpg';
 
 interface Props {
@@ -15,15 +16,20 @@ interface Props {
   /** dati strutturati aggiuntivi (oggetti JSON-LD) */
   jsonLd?: Record<string, unknown>[];
   noindex?: boolean;
+  lang?: Lang;
   type?: 'website' | 'article';
 }
 
-const { title, description = site.description, tone = 'dark', image, jsonLd = [], noindex = false, type = 'website' } = Astro.props;
+const { title, description: descriptionProp, lang = 'it', tone = 'dark', image, jsonLd = [], noindex = false, type = 'website' } = Astro.props;
+const description = descriptionProp ?? site.description[lang];
+const other: Lang = lang === 'it' ? 'en' : 'it';
 
 const fullTitle = title ? `${title} · ${site.name}` : site.title;
 const pathname = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, '');
 const base = SITE_URL || Astro.site?.origin || '';
 const canonical = `${base}${pathname === '/' ? '' : pathname}` || base;
+const altUrl = `${base}${alternate(pathname, other) === '/' ? '' : alternate(pathname, other)}`;
+const selfAlt = `${base}${alternate(pathname, lang) === '/' ? '' : alternate(pathname, lang)}`;
 const og = new URL((image ?? ogDefault).src, base || 'http://localhost').href;
 const robots = INDEXABLE && !noindex ? 'index,follow,max-image-preview:large' : 'noindex,nofollow';
 
@@ -34,15 +40,29 @@ const person = {
   jobTitle: site.role,
   url: base || undefined,
   email: site.email,
+  telephone: site.phone ?? undefined,
+  image: og,
+  knowsAbout: ['paper sculpture', 'papier-mâché', 'light installations', 'paper lamps', 'set design', 'creative workshops'],
   sameAs: site.socials.map((s) => s.href),
-  description: site.description,
+  description: site.description[lang],
 };
-const website = { '@type': 'WebSite', '@id': `${base}/#website`, url: base || undefined, name: site.name, inLanguage: 'it-IT', publisher: { '@id': `${base}/#claudia` } };
-const graph = { '@context': 'https://schema.org', '@graph': [person, website, ...jsonLd] };
+const website = { '@type': 'WebSite', '@id': `${base}/#website`, url: base || undefined, name: site.name, inLanguage: lang === 'it' ? 'it-IT' : 'en-GB', publisher: { '@id': `${base}/#claudia` } };
+const crumbs = pathname === '/' || pathname === '/en' || !title
+  ? []
+  : [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${base}${pathname.startsWith('/en') ? '/en' : '/'}` },
+          { '@type': 'ListItem', position: 2, name: title, item: canonical },
+        ],
+      },
+    ];
+const graph = { '@context': 'https://schema.org', '@graph': [person, website, ...crumbs, ...jsonLd] };
 ---
 
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,13 +70,15 @@ const graph = { '@context': 'https://schema.org', '@graph': [person, website, ..
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     {INDEXABLE && <link rel="canonical" href={canonical} />}
+    {INDEXABLE && <link rel="alternate" hreflang={lang} href={selfAlt} />}
+    {INDEXABLE && <link rel="alternate" hreflang={other} href={altUrl} />}
     <meta name="theme-color" content="#f5f3ef" />
 
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:locale" content={site.locale} />
+    <meta property="og:locale" content={site.locale[lang]} />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -71,12 +93,12 @@ const graph = { '@context': 'https://schema.org', '@graph': [person, website, ..
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
-    <a class="skip-link" href="#contenuto">Vai al contenuto</a>
-    <Header tone={tone} />
+    <a class="skip-link" href="#contenuto">{tr(ui.skip, lang)}</a>
+    <Header tone={tone} lang={lang} />
     <main id="contenuto" tabindex="-1">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
     <script>
       import '../scripts/site.ts';
     </script>

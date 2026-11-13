@@ -1,0 +1,254 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, phoneDigits, whatsappHref } from '../config/site';
+import { route, tr, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const topics: L[] = [
+  { it: 'Opere su misura', en: 'Bespoke works' },
+  { it: 'Allestimenti', en: 'Set designs' },
+  { it: 'Installazioni luminose', en: 'Light installations' },
+  { it: 'Laboratori', en: 'Workshops' },
+  { it: 'Mostre d’arte', en: 'Art exhibitions' },
+  { it: 'Collaborazione', en: 'Collaboration' },
+  { it: 'Altro', en: 'Other' },
+];
+
+const copy = {
+  title: { it: 'Contatti', en: 'Contact' },
+  seo: { it: 'Contatti e richieste su misura', en: 'Contact and bespoke requests' },
+  description: {
+    it: "Scrivi a Claudia D'Andrea per informazioni sulle opere, progetti su misura, allestimenti, laboratori o collaborazioni.",
+    en: "Write to Claudia D'Andrea for information about her works, bespoke projects, set designs, workshops or collaborations.",
+  },
+  lead: {
+    it: 'Per informazioni sulle mie opere, per un progetto su misura o per una collaborazione, scrivimi: ti rispondo appena possibile.',
+    en: 'For information about my works, for a bespoke project or for a collaboration, write to me: I will reply as soon as possible.',
+  },
+  email: { it: 'Email', en: 'Email' },
+  phone: { it: 'Telefono e WhatsApp', en: 'Phone and WhatsApp' },
+  wa: { it: 'Scrivimi su WhatsApp', en: 'Message me on WhatsApp' },
+  follow: { it: 'Seguimi', en: 'Follow me' },
+  name: { it: 'Nome e cognome', en: 'Full name' },
+  need: { it: 'Di cosa hai bisogno?', en: 'What do you need?' },
+  message: { it: 'Messaggio', en: 'Message' },
+  consent1: { it: 'Ho letto l’', en: 'I have read the ' },
+  consent2: { it: 'informativa sulla privacy', en: 'privacy policy' },
+  consent3: { it: ' e acconsento al trattamento dei dati per essere ricontattato/a.', en: ' and consent to the processing of my data so that I can be contacted.' },
+  trap: { it: 'Non compilare questo campo', en: 'Do not fill in this field' },
+  send: { it: 'Invia via email', en: 'Send by email' },
+  sendWa: { it: 'Invia su WhatsApp', en: 'Send on WhatsApp' },
+  emailOpt: { it: 'solo per l’invio via email', en: 'only for sending by email' },
+  waNote: {
+    it: 'Su WhatsApp il messaggio si apre già scritto nella chat: ti basta premere invio.',
+    en: 'On WhatsApp the message opens already written in the chat: just press send.',
+  },
+};
+
+/** Messaggi usati dallo script del modulo */
+const msgs = {
+  name: { it: 'Inserisci il tuo nome.', en: 'Please enter your name.' },
+  email: { it: 'Inserisci un indirizzo email valido.', en: 'Please enter a valid email address.' },
+  message: { it: 'Scrivi un messaggio di almeno 10 caratteri.', en: 'Please write a message of at least 10 characters.' },
+  privacy: { it: 'Per inviare il messaggio serve il consenso al trattamento dei dati.', en: 'Your consent to data processing is required to send the message.' },
+  sending: { it: 'Invio in corso…', en: 'Sending…' },
+  waOpened: { it: 'Ho aperto WhatsApp con il tuo messaggio: premi invio nella chat per mandarlo.', en: 'WhatsApp has opened with your message: press send in the chat to send it.' },
+  waHello: { it: 'Ciao Claudia, sono', en: 'Hello Claudia, my name is' },
+  waNeed: { it: 'Mi serve', en: 'I am interested in' },
+  ok: { it: 'Grazie, il messaggio è stato inviato. Ti rispondo appena possibile.', en: 'Thank you, your message has been sent. I will reply as soon as possible.' },
+  fail: {
+    it: 'Non è stato possibile inviare il messaggio. Riprova tra poco oppure scrivi direttamente via email.',
+    en: 'The message could not be sent. Please try again shortly or write to me directly by email.',
+  },
+  fields: {
+    it: 'Non è stato possibile inviare il messaggio. Controlla i campi e riprova, oppure scrivi direttamente via email.',
+    en: 'The message could not be sent. Please check the fields and try again, or write to me directly by email.',
+  },
+  offline: {
+    it: 'Connessione assente: il messaggio non è stato inviato. Riprova oppure scrivi direttamente via email.',
+    en: 'No connection: the message was not sent. Please try again or write to me directly by email.',
+  },
+};
+const msgsLang = Object.fromEntries(Object.entries(msgs).map(([k, v]) => [k, v[lang]]));
+const ld = [
+  {
+    '@type': 'ContactPage',
+    name: tr(copy.title, lang),
+    inLanguage: lang === 'it' ? 'it-IT' : 'en-GB',
+    mainEntity: { '@type': 'Person', name: "Claudia D'Andrea", email: site.email, telephone: site.phone ?? undefined },
+  },
+];
+---
+
+<Layout title={t(copy.seo)} lang={lang} description={t(copy.description)} jsonLd={ld}>
+  <PageHero title={t(copy.title)} lead={t(copy.lead)} />
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap split" style="align-items:start;gap:clamp(3rem,7vw,7rem)">
+      <div data-reveal>
+        <h2 class="label muted" style="margin-bottom:1.1rem">{t(copy.email)}</h2>
+        <p class="display-md contact-email">
+          <a href={`mailto:${site.email}`} class="inline-link">{site.email}</a>
+        </p>
+        {
+          site.phone && (
+            <>
+              <h2 class="label muted" style="margin:2.4rem 0 1.1rem">{t(copy.phone)}</h2>
+              <p class="display-md">
+                <a href={`tel:${phoneDigits}`} class="inline-link">{site.phone}</a>
+              </p>
+              {whatsappHref && (
+                <p style="margin-top:1.2rem">
+                  <a href={whatsappHref} class="cta" rel="noopener" target="_blank">{t(copy.wa)}</a>
+                </p>
+              )}
+            </>
+          )
+        }
+        <h2 class="label muted" style="margin:2.4rem 0 1.1rem">{t(copy.follow)}</h2>
+        <ul style="display:flex;flex-wrap:wrap;gap:0.6rem 2rem;margin:0;padding:0;list-style:none">
+          {site.socials.map((s) => <li><a href={s.href} class="inline-link" rel="me noopener" target="_blank">{s.label}</a></li>)}
+        </ul>
+      </div>
+
+      <div data-reveal style="--d:120ms">
+        <form id="modulo" class="contact-form" method="post" action="/api/contact" novalidate data-msgs={JSON.stringify(msgsLang)} data-wa={whatsappHref}>
+          <input type="hidden" name="lang" value={lang} />
+          <div class="field">
+            <label for="nome">{t(copy.name)}</label>
+            <input class="input" id="nome" name="nome" type="text" autocomplete="name" required maxlength="120" aria-describedby="e-nome" />
+            <p class="field-error" id="e-nome" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="email">{t(copy.email)} <span class="muted" style="font-size:0.8em">({t(copy.emailOpt)})</span></label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" maxlength="160" aria-describedby="e-email" />
+            <p class="field-error" id="e-email" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="oggetto">{t(copy.need)}</label>
+            <select class="input" id="oggetto" name="oggetto">
+              {topics.map((o) => <option value={o.it}>{t(o)}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="messaggio">{t(copy.message)}</label>
+            <textarea class="input" id="messaggio" name="messaggio" required minlength="10" maxlength="4000" aria-describedby="e-messaggio"></textarea>
+            <p class="field-error" id="e-messaggio" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="check" for="privacy">
+              <input id="privacy" name="privacy" type="checkbox" value="si" required aria-describedby="e-privacy" />
+              <span>{t(copy.consent1)}<a href={route('privacy', lang)} class="inline-link">{t(copy.consent2)}</a>{t(copy.consent3)}</span>
+            </label>
+            <p class="field-error" id="e-privacy" role="alert"></p>
+          </div>
+          <!-- Trappola per bot: invisibile alle persone -->
+          <div class="hp" aria-hidden="true">
+            <label for="sito">{t(copy.trap)}</label>
+            <input id="sito" name="sito" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <input type="hidden" name="t" id="t" value="" />
+          <div style="margin-top:2.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1.2rem 2rem">
+            <button class="btn-solid" type="submit" data-channel="whatsapp">{t(copy.sendWa)}</button>
+            <button class="cta" type="submit" data-channel="email" style="background:none;border:0;cursor:pointer">{t(copy.send)}</button>
+          </div>
+          <p class="muted" style="margin-top:1rem;font-size:0.85rem">{t(copy.waNote)}</p>
+          <div class="form-status" id="stato" role="status" aria-live="polite" hidden></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById('modulo') as HTMLFormElement | null;
+  const status = document.getElementById('stato') as HTMLElement | null;
+  if (form && status) {
+    const m = JSON.parse(form.dataset.msgs ?? '{}') as Record<string, string>;
+    (document.getElementById('t') as HTMLInputElement).value = String(Date.now());
+    const wa = form.dataset.wa ?? '';
+
+    const show = (msg: string, state: 'ok' | 'error') => {
+      status.hidden = false;
+      status.dataset.state = state;
+      status.textContent = msg;
+    };
+    const setErr = (id: string, msg: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = msg;
+      const input = el?.previousElementSibling?.closest('.field')?.querySelector<HTMLElement>('input,textarea');
+      input?.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    };
+    const validate = (channel: string) => {
+      const v = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+      let first: HTMLElement | null = null;
+      const viaEmail = channel === 'email';
+      const rules: [string, string, string, boolean][] = [
+        ['nome', 'e-nome', m.name, v('nome').value.trim().length < 2],
+        ['email', 'e-email', m.email, viaEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email').value.trim())],
+        ['messaggio', 'e-messaggio', m.message, v('messaggio').value.trim().length < 10],
+        ['privacy', 'e-privacy', m.privacy, viaEmail && !v('privacy').checked],
+      ];
+      for (const [name, errId, text, bad] of rules) {
+        setErr(errId, bad ? text : '');
+        if (bad && !first) first = v(name);
+      }
+      first?.focus();
+      return !first;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.hidden = true;
+      const submitter = (e as SubmitEvent).submitter as HTMLButtonElement | null;
+      const channel = submitter?.dataset.channel ?? 'whatsapp';
+      if (!validate(channel)) return;
+
+      if (channel === 'whatsapp') {
+        const v = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value.trim();
+        const text = `${m.waHello} ${v('nome')}. ${m.waNeed}: ${v('oggetto')}.
+
+${v('messaggio')}`;
+        window.open(`${wa}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+        show(m.waOpened, 'ok');
+        return;
+      }
+
+      const btn = submitter!;
+      btn.disabled = true;
+      const label = btn.textContent;
+      btn.textContent = m.sending;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.reset();
+          (document.getElementById('t') as HTMLInputElement).value = String(Date.now());
+          show(m.ok, 'ok');
+        } else {
+          show(data.error ?? m.fail, 'error');
+        }
+      } catch {
+        show(m.offline, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+
+    // Fallback senza JavaScript: l'endpoint reindirizza con ?stato=...
+    const p = new URLSearchParams(location.search).get('stato');
+    if (p === 'ok') show(m.ok, 'ok');
+    if (p === 'errore') show(m.fields, 'error');
+  }
+</script>

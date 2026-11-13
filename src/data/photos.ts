@@ -1,4 +1,5 @@
 import type { ImageMetadata } from 'astro';
+import type { L } from '../i18n';
 
 const files = import.meta.glob<{ default: ImageMetadata }>('/src/assets/photos/**/*.{jpg,jpeg,png}', {
   eager: true,
@@ -14,8 +15,8 @@ export function photo(key: string): ImageMetadata {
 export interface Shot {
   /** chiave della foto (percorso senza estensione in src/assets/photos) */
   key: string;
-  /** testo alternativo descrittivo */
-  alt: string;
+  /** testo alternativo descrittivo, nelle due lingue */
+  alt: L;
   /** didascalia visibile, opzionale */
   title?: string;
   caption?: string;

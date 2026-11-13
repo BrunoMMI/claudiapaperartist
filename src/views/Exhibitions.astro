@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Gallery from '../components/Gallery.astro';
+import { exhibitions } from '../data/exhibitions';
+import { photo } from '../data/photos';
+import { tr, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const copy = {
+  title: { it: 'Mostre', en: 'Exhibitions' },
+  seo: { it: 'Mostre personali e collettive', en: 'Solo and group exhibitions' },
+  description: {
+    it: "Le mostre di Claudia D'Andrea, paper artist: personali e collettive da Firenze a Londra, da Zagarolo a Benevento.",
+    en: "The exhibitions of Claudia D'Andrea, paper artist: solo and group shows from Florence to London, from Zagarolo to Benevento.",
+  },
+  lead: {
+    it: 'Personali e collettive – un percorso dal 2022 ad oggi.',
+    en: 'Solo and group exhibitions – a journey from 2022 to today.',
+  },
+  list: { it: 'Elenco delle mostre', en: 'List of exhibitions' },
+  curated: { it: 'a cura di', en: 'curated by' },
+};
+
+const ld = [
+  {
+    '@type': 'ItemList',
+    itemListElement: exhibitions.map((e, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'ExhibitionEvent',
+        name: e.title,
+        startDate: String(e.year),
+        description: `${tr(e.dates, lang)}`,
+        location: { '@type': 'Place', name: tr(e.venue, lang) },
+        performer: { '@type': 'Person', name: "Claudia D'Andrea" },
+      },
+    })),
+  },
+];
+const years = [...new Set(exhibitions.map((e) => e.year))].sort((a, b) => b - a);
+---
+
+<Layout title={t(copy.seo)} lang={lang} description={t(copy.description)} image={photo('mostre/luce-di-carta-opere')} jsonLd={ld}>
+  <PageHero title={t(copy.title)} lead={t(copy.lead)} />
+
+  <section class="section-tight" style="padding-top:0" aria-label={t(copy.list)}>
+    <div class="wrap year-list">
+      {
+        years.map((y) => (
+          <div class="year-row">
+            <h2 class="year-row__year" data-reveal>{y}</h2>
+            <div>
+              {exhibitions
+                .filter((e) => e.year === y)
+                .map((e) => (
+                  <article class="ex-item" id={e.slug}>
+                    <h3 data-reveal>{e.title}</h3>
+                    <p data-reveal>
+                      {t(e.venue)} &middot; {t(e.dates)}
+                      {e.curators && <> &middot; {t(copy.curated)} {e.curators}</>}
+                      {e.role && <> &middot; {t(e.role)}</>}
+                    </p>
+                    {e.shots && (
+                      <div class="ex-feature">
+                        <Gallery shots={e.shots} group={`mostra-${e.slug}`} lang={lang} calm />
+                      </div>
+                    )}
+                  </article>
+                ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,73 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Icon from './Icon.astro';
+import { photo, type Shot } from '../data/photos';
+import { tr, ui, type Lang } from '../i18n';
+
+interface Props {
+  shots: Shot[];
+  /** nome del gruppo per il lightbox */
+  group: string;
+  /** locandina: resta fuori dal carosello e viene mostrata accanto */
+  poster?: Shot;
+  lang?: Lang;
+  /** nome accessibile del carosello */
+  label?: string;
+}
+
+const { shots, group, poster, lang = 'it', label } = Astro.props;
+
+const prep = async (s: Shot, w: number) => {
+  const meta = photo(s.key);
+  const large = await getImage({ src: meta, width: Math.min(1800, meta.width), format: 'webp', quality: 80 });
+  return { ...s, alt: tr(s.alt, lang), meta, large: large.src, w };
+};
+const items = await Promise.all(shots.map((s) => prep(s, 0)));
+const post = poster ? await prep(poster, 0) : null;
+---
+
+<div class:list={['lab-media', { 'lab-media--poster': !!post }]}>
+  {
+    post && (
+      <figure class="lab-poster" data-reveal="image">
+        <a href={post.large} data-lightbox={group} data-caption={post.alt} data-alt={post.alt}>
+          <Image src={post.meta} alt={post.alt} widths={[320, 520, 800]} sizes="(min-width: 860px) 16rem, 60vw" format="webp" quality={78} loading="lazy" decoding="async" />
+        </a>
+      </figure>
+    )
+  }
+  <div class="carousel" data-carousel role="region" aria-roledescription="carousel" aria-label={label}>
+    <div class="carousel__track" data-carousel-track tabindex="0">
+      {
+        items.map((it) => (
+          <a
+            class="carousel__item"
+            href={it.large}
+            data-lightbox={group}
+            data-caption={[it.title, it.alt].filter(Boolean).join(' — ')}
+            data-alt={it.alt}
+          >
+            <Image
+              src={it.meta}
+              alt={it.alt}
+              widths={[300, 500, 700, 1000]}
+              sizes="(min-width: 860px) 24rem, 70vw"
+              format="webp"
+              quality={74}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        ))
+      }
+    </div>
+    <div class="carousel__nav">
+      <button type="button" class="round-btn carousel__btn" data-carousel-prev aria-label={tr(ui.prev, lang)}>
+        <Icon name="prev" />
+      </button>
+      <button type="button" class="round-btn carousel__btn" data-carousel-next aria-label={tr(ui.next, lang)}>
+        <Icon name="next" />
+      </button>
+    </div>
+  </div>
+</div>
