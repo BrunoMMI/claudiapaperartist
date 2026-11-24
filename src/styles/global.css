@@ -960,16 +960,15 @@
     order: 2;
   }
 }
-.service-row__img {
-  display: grid;
-  place-items: center;
-}
+/* foto dei servizi: mai ritagliate. La larghezza è esplicita (100%) perché con width:auto un'immagine lazy
+   resta 0x0, non entra mai nella finestra e non viene caricata. */
 .service-row__img img {
-  width: auto;
-  max-width: 100%;
+  display: block;
+  width: 100%;
   height: auto;
   max-height: min(40rem, 82vh);
   object-fit: contain;
+  object-position: center;
 }
 
 /* ── Modulo contatti ── */
