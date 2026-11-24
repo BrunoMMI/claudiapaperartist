@@ -21,11 +21,9 @@ const MAX_EDGE = 2400;
 const PHOTOS = {
   // Paper lamps: le altre due opere (Ballerina, Ragazza che legge) e i due primi piani
   'lavori/ballerina': 'Paper lamps/Ballerina.jpg',
-  'lavori/ballerina-primo-piano': 'Paper lamps/Ballerina in primo piano.jpg',
   'lavori/ragazza-che-legge': 'Paper lamps/Ragazza che legge.jpg',
   'lavori/ragazza-che-legge-primo-piano': 'Paper lamps/Ragazza che legge in primo piano.jpg',
   // Allestimenti: foto non ancora presenti nel sito
-  'allestimenti/torta-ritratto': 'Allestimenti/IMG_4023.1.jpg',
   // Installazioni luminose: Primavera fotografata di giorno (sostituisce "primavera-dettaglio" nella galleria)
   'lavori/primavera-giorno': 'N3:WhatsApp Image 2026-11-24 at 04.20.06 (5).jpeg',
   // Installazioni luminose: Estate fotografata di giorno
@@ -39,7 +37,6 @@ const PHOTOS = {
   // Laboratori · Urban paper: serie completa dalla cartella "Urban paper. Dalla carta al fiore" (sostituisce la serie precedente)
   'laboratori/urban-paper-1': 'Laboratori/Urban paper. Dalla carta al fiore/IMG-20261003-WA0048.jpg',
   'laboratori/urban-paper-2': 'Laboratori/Urban paper. Dalla carta al fiore/IMG-20261003-WA0049.jpg',
-  'laboratori/urban-paper-3': 'Laboratori/Urban paper. Dalla carta al fiore/laboratorio 3 ottobre 2026.jpeg',
   'laboratori/urban-paper-4': 'Laboratori/Urban paper. Dalla carta al fiore/WhatsApp Image 2026-11-08 at 19.08.08 (1).jpeg',
   'laboratori/urban-paper-5': 'Laboratori/Urban paper. Dalla carta al fiore/WhatsApp Image 2026-11-08 at 19.08.08.jpeg',
   'laboratori/urban-paper-6': 'Laboratori/Urban paper. Dalla carta al fiore/Screenshot_20261030_140511_Ecosia.jpg',
@@ -52,7 +49,6 @@ const PHOTOS = {
   'laboratori/valata-5': 'Laboratori/Disegno, Materia, Luce - Attraverso la carta/IMG-20260629-WA0050.jpg',
   'laboratori/valata-6': 'Laboratori/Disegno, Materia, Luce - Attraverso la carta/IMG-20260728-WA0011.jpg',
   'laboratori/valata-7': 'Laboratori/Disegno, Materia, Luce - Attraverso la carta/IMG-20260728-WA0012.jpg',
-  'laboratori/valata-8': 'Laboratori/Disegno, Materia, Luce - Attraverso la carta/WhatsApp Image 2026-11-08 at 19.40.13.jpeg',
   // Laboratori · Officina della carta: serie dalla cartella (la locandina "officina-1" non cambia)
   'laboratori/officina-20': 'Laboratori/Officina della carta - Luce agli scarti/20251201_095050.jpg',
   'laboratori/officina-21': 'Laboratori/Officina della carta - Luce agli scarti/20251201_104422.jpg',
@@ -60,10 +56,18 @@ const PHOTOS = {
   'laboratori/officina-23': 'Laboratori/Officina della carta - Luce agli scarti/IMG-20251215-WA0024.jpg',
   'laboratori/officina-24': 'Laboratori/Officina della carta - Luce agli scarti/WhatsApp Image 2026-11-08 at 19.40.13 (1).jpeg',
   'laboratori/officina-25': 'Laboratori/Officina della carta - Luce agli scarti/WhatsApp Image 2026-11-08 at 19.40.14.jpeg',
+  // Sculture: figura con rami su fondo nero
+  'lavori/figura-6': 'Sculture/IMG_3147.JPG',
+  // Mostre · Echi d'entroterra: due persone conversano davanti a una scultura da parete
+  'mostre/echi-incontro': 'Mostra 2025 Echi.jpeg',
+  // Mostre · Luce di carta: foto dalla cartella "Luce di Carta Modifiche"
+  'mostre/luce-di-carta-righe': 'Luce di Carta Modifiche/IMG_0973.JPG',
+  'mostre/luce-di-carta-albero': 'Luce di Carta Modifiche/IMG_0976.JPG',
+  'mostre/luce-di-carta-visitatrice': 'Luce di Carta Modifiche/IMG_1014.JPG',
+  'mostre/luce-di-carta-corridoio': 'Luce di Carta Modifiche/IMG_1024.JPG',
+  'mostre/luce-di-carta-parete-blu': 'Luce di Carta Modifiche/IMG_1028.JPG',
   // Sfondi: fiori di carta su fondo scuro
   'sfondi/fiore-1': 'Altri sfondi/20261111_131117.jpg',
-  'sfondi/fiore-2': 'Altri sfondi/20261111_131150.jpg',
-  'sfondi/fiore-3': 'Altri sfondi/20261111_132251.jpg',
 };
 
 for (const [key, rel] of Object.entries(PHOTOS)) {

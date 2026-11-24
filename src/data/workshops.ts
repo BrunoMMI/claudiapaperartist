@@ -35,7 +35,6 @@ export const workshops: Workshop[] = [
     shots: [
       { key: 'laboratori/urban-paper-1', alt: { it: 'La sala del laboratorio Urban paper: una proiezione di un fiore sullo schermo, il relatore e il pubblico seduto', en: 'The Urban paper workshop room: a projection of a flower on the screen, the speaker and the seated audience' } },
       { key: 'laboratori/urban-paper-2', alt: { it: 'Un kit con carta, bustine di semi e il programma dell’evento Urban Nature', en: 'A kit with paper, seed packets and the programme of the Urban Nature event' } },
-      { key: 'laboratori/urban-paper-3', alt: { it: 'Tavolo del laboratorio con carta gialla, rotoli di cartone e decorazioni a nido d’ape', en: 'Workshop table with yellow paper, cardboard tubes and honeycomb decorations' } },
       { key: 'laboratori/urban-paper-4', alt: { it: 'Bambini al lavoro con la carta gialla e i rotoli di cartone a un tavolo del laboratorio', en: 'Children working with yellow paper and cardboard tubes at a workshop table' } },
       { key: 'laboratori/urban-paper-5', alt: { it: 'Una partecipante lavora la carta a un tavolo, tra fogli e fiori colorati', en: 'A participant working paper at a table, among coloured sheets and flowers' } },
       { key: 'laboratori/urban-paper-6', alt: { it: 'Pagina del sito WWF dedicata all’evento “Urban Paper: dalla carta al fiore”, Urban Nature 2026', en: 'WWF web page for the event “Urban Paper: from paper to flower”, Urban Nature 2026' } },
@@ -63,7 +62,6 @@ export const workshops: Workshop[] = [
       { key: 'laboratori/valata-5', alt: { it: 'Un vaso di cartone rivestito di carta, rifinito con il pennello', en: 'A cardboard vase covered in paper, finished with a brush' } },
       { key: 'laboratori/valata-6', alt: { it: 'Un bambino lavora a una struttura di cartone a forma di numero su un tavolo bianco', en: 'A boy working on a cardboard number-shaped structure at a white table' } },
       { key: 'laboratori/valata-7', alt: { it: 'Un bambino rifinisce con il pennello una struttura di cartone su un tavolo bianco', en: 'A boy finishing a cardboard structure with a brush at a white table' } },
-      { key: 'laboratori/valata-8', alt: { it: 'Mani che rivestono di carta un vaso di cartone con il pennello', en: 'Hands covering a cardboard vase with paper using a brush' } },
     ],
   },
   {

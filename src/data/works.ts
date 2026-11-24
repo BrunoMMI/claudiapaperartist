@@ -77,7 +77,7 @@ export const categories: WorkCategory[] = [
     shots: [
       { key: 'lavori/figura-3', alt: { it: 'Figura scolpita in carta bianca con rami sul busto, su fondo nero', en: 'Sculpted white paper figure with branches on the bust, on a black background' } },
       { key: 'lavori/figura-4', alt: { it: 'Figura scolpita in carta bianca vista da vicino, con rami e una chioma raccolta, su fondo nero', en: 'Close view of a sculpted white paper figure, with branches and gathered hair, on a black background' } },
-      { key: 'lavori/figura-2', alt: { it: 'Dettaglio della testa di una figura scolpita in carta, su fondo blu notte', en: 'Detail of the head of a sculpted paper figure, on a midnight-blue background' } },
+      { key: 'lavori/figura-6', alt: { it: 'Figura scolpita in carta bianca, alta e slanciata, con rami in rilievo sul corpo e un ciuffo di rami secchi in primo piano, su fondo nero', en: 'Sculpted white paper figure, tall and slender, with branches in relief on the body and a bunch of dry twigs in the foreground, on a black background' } },
       { key: 'lavori/toscana', title: 'Toscana', alt: { it: 'Toscana, scultura da parete in carta: colline stilizzate con file di cipressi', en: 'Toscana, a paper wall sculpture: stylised hills with rows of cypresses' } },
       { key: 'lavori/unlimited', title: 'Unlimited', alt: { it: 'Unlimited, scultura di carta bianca stropicciata con rilievi profondi', en: 'Unlimited, a crumpled white paper sculpture with deep relief' } },
       { key: 'lavori/light-1', title: 'Light No. 1', alt: { it: 'Light No. 1, scultura da parete in carta dalle pieghe morbide e lucide', en: 'Light No. 1, a paper wall sculpture with soft, glossy folds' } },
@@ -112,10 +112,9 @@ export const categories: WorkCategory[] = [
     },
     shots: [
       { key: 'lavori/ballerina-di-flamenco', title: 'Ballerina di Flamenco', alt: { it: 'Ballerina di Flamenco, lampada di carta a forma di figura danzante con gonna ampia', en: 'Flamenco Dancer, a paper lamp shaped like a dancing figure with a wide skirt' } },
-      { key: 'lavori/dama-con-farfalla-2', title: 'Dama con Farfalla', alt: { it: 'Dama con Farfalla vista da dietro: la figura sopra la base luminosa', en: 'Lady with Butterfly seen from behind: the figure above the glowing base' } },
       { key: 'lavori/dama-con-farfalla', title: 'Dama con Farfalla', alt: { it: 'Dama con Farfalla, lampada di carta con una figura che porta una farfalla sul cappello', en: 'Lady with Butterfly, a paper lamp with a figure wearing a butterfly on her hat' } },
       { key: 'lavori/ballerina', title: 'Ballerina', alt: { it: 'Ballerina, lampada di carta con una figura danzante in equilibrio sulla sommità di una base ovale luminosa', en: 'Dancer, a paper lamp with a dancing figure balanced on top of a glowing oval base' } },
-      { key: 'lavori/ragazza-che-legge-primo-piano', title: 'Ragazza che legge', alt: { it: 'Ragazza che legge in primo piano, accanto alla lampada Ballerina sullo sfondo', en: 'Girl Reading in the foreground, next to the lamp Dancer in the background' } },
+      { key: 'lavori/ragazza-che-legge', title: 'Ragazza che legge', alt: { it: 'Ragazza che legge, lampada di carta con una figura seduta che regge un libro sopra una base luminosa di petali, accanto a un paio di occhiali', en: 'Girl Reading, a paper lamp with a seated figure holding a book above a glowing base of petals, next to a pair of glasses' } },
     ],
   },
   {
@@ -141,7 +140,6 @@ export const categories: WorkCategory[] = [
       { key: 'allestimenti/torta-blu', title: { it: 'La torta', en: 'The cake' }, alt: { it: 'Torta di carta blu e bianca con la candelina 18', en: 'Blue and white paper cake with a number 18 candle' } },
       { key: 'allestimenti/candela-18', title: { it: 'La candelina', en: 'The candle' }, alt: { it: 'Candelina con il numero 18 sulla torta, davanti a luci blu', en: 'Number 18 candle on the cake, in front of blue lights' } },
       { key: 'allestimenti/tavolo', title: { it: 'Il tavolo', en: 'The table' }, alt: { it: 'Tavolo con la torta blu e le scatoline con nastri blu e argento', en: 'Table with the blue cake and the small boxes with blue and silver ribbons' } },
-      { key: 'allestimenti/tavolo-2', title: { it: 'Il tavolo', en: 'The table' }, alt: { it: 'Scatoline bianche con nastri blu e i segnalibri sul tavolo bianco', en: 'White small boxes with blue ribbons and the bookmarks on the white table' } },
       { key: 'allestimenti/scatole-1', title: { it: 'Le scatoline', en: 'The small boxes' }, alt: { it: 'Scatoline bianche con nastri blu e argento', en: 'White small boxes with blue and silver ribbons' } },
       { key: 'allestimenti/cerchio', title: { it: 'Il cerchio di luci', en: 'The hoop of lights' }, alt: { it: 'Cerchio con luci blu e pompon di carta blu e bianchi', en: 'Hoop with blue lights and blue and white paper pompoms' } },
     ],

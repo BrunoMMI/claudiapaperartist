@@ -1436,6 +1436,10 @@ select.input {
 }
 
 /* Email lunga nei contatti: su telefono resta su una riga, senza spezzare il dominio */
+/* numero di telefono: più piccolo dell'email */
+.contact-phone {
+  font-size: clamp(1rem, 4.2vw, 1.35rem);
+}
 .contact-email {
   font-size: clamp(1.05rem, 5.4vw, 1.9rem);
   overflow-wrap: anywhere;
