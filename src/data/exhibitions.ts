@@ -65,9 +65,7 @@ export const exhibitions: Exhibition[] = [
       { key: 'mostre/wonder-3', alt: { it: 'Atena e una figura di carta in una sala di Palazzo Rospigliosi', en: 'Athena and a paper figure in a hall of Palazzo Rospigliosi' } },
       { key: 'mostre/wonder-4', alt: { it: 'Le sculture di carta nella sala con soffitto affrescato, illuminata da una lampada', en: 'The paper sculptures in the hall with a frescoed ceiling, lit by a lamp' } },
       { key: 'mostre/wonder-5', alt: { it: 'Sala di Palazzo Rospigliosi con le sculture di carta e alcuni visitatori', en: 'A hall of Palazzo Rospigliosi with the paper sculptures and some visitors' } },
-      { key: 'mostre/wonder-6', alt: { it: 'Visitatori in una sala affrescata davanti alle sculture di carta', en: 'Visitors in a frescoed hall in front of the paper sculptures' } },
       { key: 'mostre/wonder-7', alt: { it: 'Atena illuminata da una lanterna a terra, con un visitatore che la osserva', en: 'Athena lit by a lantern on the floor, with a visitor looking at her' } },
-      { key: 'mostre/wonder-8', alt: { it: 'Una visitatrice osserva Atena nella sala affrescata', en: 'A visitor looking at Athena in the frescoed hall' } },
     ],
   },
   {
@@ -80,13 +78,10 @@ export const exhibitions: Exhibition[] = [
     shots: [
       { key: 'mostre/luce-di-carta-locandina', alt: { it: 'Locandina della mostra personale Luce di carta, 31.10 Art Hotel, Firenze', en: 'Poster of the solo exhibition Luce di carta, 31.10 Art Hotel, Florence' } },
       { key: 'mostre/luce-di-carta-sala', alt: { it: 'Sculture da parete in carta bianca su una parete blu', en: 'White paper wall sculptures on a blue wall' } },
-      { key: 'mostre/luce-di-carta-opere', alt: { it: 'Cinque sculture da parete in carta allineate su parete blu petrolio', en: 'Five paper wall sculptures lined up on a petrol-blue wall' } },
       { key: 'mostre/luce-di-carta-cavalletto', alt: { it: 'Il cartello della mostra su un cavalletto, accanto a una scultura da parete', en: 'The exhibition sign on an easel, next to a wall sculpture' } },
       { key: 'mostre/luce-di-carta-angolo', alt: { it: 'Tre sculture da parete in carta bianca su una parete grigia', en: 'Three white paper wall sculptures on a grey wall' } },
       { key: 'mostre/luce-di-carta-rilievo', alt: { it: 'Scultura da parete in carta bianca con rilievi profondi, su sfondo blu', en: 'White paper wall sculpture with deep relief, on a blue background' } },
-      { key: 'mostre/luce-di-carta-parete', alt: { it: 'Scultura da parete in carta con onde e piccoli rilievi, con la targhetta', en: 'Paper wall sculpture with waves and small reliefs, with its label' } },
       { key: 'mostre/luce-di-carta-specchio', alt: { it: 'Sculture da parete su carta da parati a righe, accanto a uno specchio dorato', en: 'Wall sculptures on striped wallpaper, next to a golden mirror' } },
-      { key: 'mostre/luce-di-carta-lampada', alt: { it: 'Lampada-scultura di carta con figura femminile, accanto al cartello della mostra', en: 'Paper lamp-sculpture with a female figure, next to the exhibition sign' } },
     ],
   },
   { slug: 'sinfonie-artistiche', year: 2023, title: 'Sinfonie Artistiche', venue: merlino, dates: { it: 'gennaio – marzo 2023', en: 'January – March 2023' } },

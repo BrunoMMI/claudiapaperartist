@@ -24,8 +24,8 @@ const copy = {
   title: { it: 'Contatti', en: 'Contact' },
   seo: { it: 'Contatti e richieste su misura', en: 'Contact and bespoke requests' },
   description: {
-    it: "Scrivi a Claudia D'Andrea per informazioni sulle opere, progetti su misura, allestimenti, laboratori o collaborazioni.",
-    en: "Write to Claudia D'Andrea for information about her works, bespoke projects, set designs, workshops or collaborations.",
+    it: "Scrivi a Claudia D'Andrea per informazioni sulle opere, progetti su misura, allestimenti, laboratori o collaborazioni: via email o su WhatsApp.",
+    en: "Write to Claudia D'Andrea for information about her works, bespoke projects, set designs, workshops or collaborations: by email or on WhatsApp.",
   },
   lead: {
     it: 'Per informazioni sulle mie opere, per un progetto su misura o per una collaborazione, scrivimi: ti rispondo appena possibile.',
@@ -155,8 +155,8 @@ const ld = [
           </div>
           <input type="hidden" name="t" id="t" value="" />
           <div style="margin-top:2.2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1.2rem 2rem">
-            <button class="btn-solid" type="submit" data-channel="whatsapp">{t(copy.sendWa)}</button>
-            <button class="cta" type="submit" data-channel="email" style="background:none;border:0;cursor:pointer">{t(copy.send)}</button>
+            <button class="btn-solid" type="submit" data-channel="email">{t(copy.send)}</button>
+            <button class="cta" type="submit" data-channel="whatsapp" style="background:none;border:0;cursor:pointer">{t(copy.sendWa)}</button>
           </div>
           <p class="muted" style="margin-top:1rem;font-size:0.85rem">{t(copy.waNote)}</p>
           <div class="form-status" id="stato" role="status" aria-live="polite" hidden></div>
@@ -207,7 +207,7 @@ const ld = [
       e.preventDefault();
       status.hidden = true;
       const submitter = (e as SubmitEvent).submitter as HTMLButtonElement | null;
-      const channel = submitter?.dataset.channel ?? 'whatsapp';
+      const channel = submitter?.dataset.channel ?? 'email';
       if (!validate(channel)) return;
 
       if (channel === 'whatsapp') {

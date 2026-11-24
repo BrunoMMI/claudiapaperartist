@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Photo from '../components/Photo.astro';
-import Gallery from '../components/Gallery.astro';
+import Carousel from '../components/Carousel.astro';
 import { services } from '../data/services';
 import { photo } from '../data/photos';
 import { route, tr, type L, type Lang } from '../i18n';
@@ -16,10 +16,10 @@ const t = (v: L) => tr(v, lang);
 const copy = {
   title: { it: 'Servizi', en: 'Services' },
   heading: { it: 'Cosa posso fare per te', en: 'What I can do for you' },
-  seo: { it: 'Servizi su misura: opere, allestimenti, eventi', en: 'Bespoke works, set designs and events' },
+  seo: { it: 'Servizi su misura: opere e allestimenti', en: 'Bespoke works and set designs' },
   description: {
-    it: 'Sculture di carta su misura, installazioni luminose, allestimenti ed eventi, laboratori creativi per adulti e bambini.',
-    en: 'Bespoke paper sculptures, light installations, set designs and events, creative workshops for adults and children.',
+    it: 'Sculture di carta su misura, installazioni luminose, allestimenti ed eventi, laboratori creativi per adulti e bambini. Ogni progetto nasce dal dialogo con lo spazio.',
+    en: 'Bespoke paper sculptures, light installations, set designs and events, creative workshops for adults and children. Every project grows from a dialogue with the space.',
   },
   lead: {
     it: 'Opere uniche, atmosfere di luce, scenografie e momenti da vivere attraverso forme e sensazioni. Ogni progetto nasce dal dialogo con lo spazio e con chi lo abita.',
@@ -65,7 +65,7 @@ const ld = [
           </div>
           {s.gallery && (
             <div class="service-row__gallery">
-              <Gallery shots={s.gallery} group={`servizi-${s.id}`} lang={lang} calm />
+              <Carousel shots={s.gallery} group={`servizi-${s.id}`} lang={lang} label={t(s.title)} />
             </div>
           )}
         </section>

@@ -115,7 +115,8 @@ function show(i: number) {
   const img = dlg.querySelector('img')!;
   img.src = it.href;
   img.alt = it.alt;
-  dlg.querySelector('.lightbox__cap')!.textContent = it.caption || it.alt;
+  dlg.querySelector('.lightbox__cap')!.textContent = it.caption;
+  dlg.querySelector<HTMLElement>('.lightbox__bar')!.hidden = !it.caption;
   const many = items.length > 1;
   dlg.querySelector<HTMLElement>('.lightbox__prev')!.hidden = !many;
   dlg.querySelector<HTMLElement>('.lightbox__next')!.hidden = !many;

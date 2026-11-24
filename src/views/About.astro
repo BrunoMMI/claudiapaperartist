@@ -13,7 +13,7 @@ const t = (v: L) => tr(v, lang);
 
 const personExtra = {
   '@type': 'AboutPage',
-  name: `About · ${site.name}`,
+  name: `About me · ${site.name}`,
   inLanguage: lang === 'it' ? 'it-IT' : 'en-GB',
   about: { '@type': 'Person', name: site.name, jobTitle: site.role },
 };
@@ -23,75 +23,44 @@ const copy = {
     it: "Claudia D'Andrea è un'artista autodidatta: la sua ricerca si fonda sullo studio della luce, attraverso sculture, paper lamps, installazioni luminose e allestimenti in carta e cartapesta.",
     en: "Claudia D'Andrea is a self-taught artist: her research is based on the study of light, through sculptures, paper lamps, light installations and set designs in paper and papier-mâché.",
   },
-  kicker: { it: 'About', en: 'About' },
+  kicker: { it: 'About me', en: 'About me' },
   lead: {
-    it: 'Artista autodidatta appassionata di arte, musica, lettura, viaggi e cucina.',
-    en: 'Self-taught artist, passionate about art, music, reading, travel and cooking.',
+    it: 'Donna, mamma, moglie… artista autodidatta appassionata di arte, musica, lettura, viaggi e cucina.',
+    en: 'Woman, mother, wife… self-taught artist, passionate about art, music, reading, travel and cooking.',
   },
   photoAlt: {
-    it: 'Claudia D’Andrea al lavoro, ripresa attraverso il foro di una scultura di carta',
-    en: 'Claudia D’Andrea at work, seen through the opening of a paper sculpture',
+    it: 'Claudia D’Andrea al lavoro con il pennello in mano, ripresa attraverso il foro di una scultura di carta',
+    en: 'Claudia D’Andrea at work with a brush in her hand, seen through the opening of a paper sculpture',
   },
   me: {
     it: [
-      'La mia ricerca artistica si fonda sullo studio della luce: una luce delicata, bianca e sottile come la carta.',
-      'Le mie opere nascono dall’utilizzo della carta e della cartapesta, materiali che diventano strumenti della mia espressione artistica e di trasformazione della materia. Il mio lavoro unisce manualità, immaginazione, ricerca e creatività, con l’obiettivo di trasformare un materiale semplice e versatile, come la carta o il cartone, in opere e installazioni capaci di dialogare con gli spazi e suscitare emozioni.',
-      'La mia attività si articola nella realizzazione di sculture, paper lamps, installazioni luminose e allestimenti scenografici destinati a valorizzare gli spazi e a conferire loro una nuova dimensione estetica ed emozionale. Attraverso lo studio e la sperimentazione delle potenzialità espressive della carta, do vita a creazioni capaci di coniugare ricerca artistica, sensibilità progettuale e cura del dettaglio.',
-      'Il mio percorso si è arricchito nel tempo attraverso la partecipazione a mostre ed esposizioni d’arte in Italia e all’estero, occasioni di confronto e crescita che hanno contribuito a consolidare la mia identità artistica.',
-      'Accanto alla produzione di opere scultoree, promuovo e conduco laboratori dedicati alla lavorazione della carta e della cartapesta, offrendo ai partecipanti l’opportunità di avvicinarsi a queste tecniche, esplorarne le possibilità creative e sperimentare il valore espressivo della materia.',
+      'La mia ricerca artistica si fonda sullo studio della luce: una luce delicata e sottile. Le mie opere nascono dall’impiego della carta e della cartapesta, materiali che diventano strumenti d’espressione e di trasformazione della materia. Il mio lavoro unisce manualità, immaginazione, ricerca e creatività, con l’obiettivo di trasformare un supporto semplice e versatile in opere e installazioni capaci di dialogare con gli spazi e di suscitare emozioni.',
+      'La mia attività si articola nella realizzazione di sculture, paper lamps, installazioni luminose e allestimenti scenografici, pensati per valorizzare gli ambienti e conferire loro una nuova dimensione estetica ed emozionale. Attraverso lo studio e la sperimentazione delle potenzialità espressive della carta, do vita a creazioni che coniugano ricerca artistica, sensibilità progettuale e cura del dettaglio.',
+      'Il mio percorso si è arricchito nel tempo attraverso la partecipazione a mostre ed esposizioni in Italia e all’estero, preziose occasioni di confronto e crescita che hanno consolidato la mia identità artistica.',
+      'Accanto alla produzione scultorea, promuovo e conduco laboratori dedicati alla lavorazione della carta e della cartapesta, offrendo ai partecipanti l’opportunità di avvicinarsi a queste tecniche, esplorarne le possibilità creative e sperimentare il valore vivo della materia.',
     ],
     en: [
-      'My artistic research is based on the study of light: a delicate light, white and thin like paper.',
-      'My works are born from the use of paper and papier-mâché, materials that become tools of my artistic expression and of the transformation of matter. My work combines craftsmanship, imagination, research and creativity, with the aim of turning a simple and versatile material, such as paper or cardboard, into works and installations able to dialogue with spaces and stir emotions.',
-      'My activity takes the form of sculptures, paper lamps, light installations and scenographic set designs meant to enhance spaces and give them a new aesthetic and emotional dimension. Through the study and experimentation of the expressive potential of paper, I create works that combine artistic research, design sensitivity and attention to detail.',
-      'My journey has been enriched over time by taking part in art exhibitions in Italy and abroad, opportunities for exchange and growth that have helped consolidate my artistic identity.',
-      'Alongside the production of sculptural works, I promote and lead workshops on working with paper and papier-mâché, giving participants the chance to approach these techniques, explore their creative possibilities and experience the expressive value of the material.',
+      'My artistic research is based on the study of light: a delicate, subtle light. My works are born from the use of paper and papier-mâché, materials that become tools of expression and of transformation of matter. My work combines craftsmanship, imagination, research and creativity, with the aim of turning a simple, versatile support into works and installations able to dialogue with spaces and stir emotions.',
+      'My activity takes the form of sculptures, paper lamps, light installations and scenographic set designs, conceived to enhance spaces and give them a new aesthetic and emotional dimension. Through the study and experimentation of the expressive potential of paper, I bring to life creations that combine artistic research, design sensitivity and attention to detail.',
+      'My journey has been enriched over time by taking part in exhibitions in Italy and abroad, precious opportunities for exchange and growth that have consolidated my artistic identity.',
+      'Alongside my sculptural production, I promote and lead workshops on working with paper and papier-mâché, giving participants the chance to approach these techniques, explore their creative possibilities and experience the living value of the material.',
     ],
-  },
-  quote: {
-    it: '“Il mio primo ricordo è luce – la luminosità della luce – luce tutto intorno.”',
-    en: '“My first memory is of the light – the brightness of the light – light all around.”',
-  },
-  artTitle: { it: 'About my artwork', en: 'About my artwork' },
-  artQuestion: {
-    it: 'È possibile fermare la luce, incastonarla nella materia e fermarla nel tempo?',
-    en: 'Is it possible to stop light, to set it into matter and hold it in time?',
-  },
-  art: {
-    it: [
-      'La ricerca artistica di Claudia D’Andrea si fonda sullo studio della luce: una luce eterea, delicata, sottile e bianca come la carta. Proprio la carta, nelle sue sculture, diviene medium per attuare questo studio, dove sperimentazioni continue l’hanno condotta verso un linguaggio artistico ormai definito.',
-      'Claudia si muove tra la realizzazione di sculture e “Sculture di luce” realizzate a partire dalle lampade. In entrambi i linguaggi la luce è protagonista. La cartapesta si configura come materiale prescelto dall’artista per la realizzazione delle sue opere.',
-      'Lo stile di Claudia è minimale ma di grande impatto, minuzioso, attento e curato, le sue opere si contraddistinguono per un astrattismo in cui la carta prende vita attraverso morbidi movimenti, in cui luce e ombre sembrano rincorrersi in una danza leggera.',
-    ],
-    en: [
-      'Claudia D’Andrea’s artistic research is based on the study of light: an ethereal, delicate, thin light, white like paper. In her sculptures, paper itself becomes the medium through which this study is carried out, and continuous experimentation has led her to an artistic language that is by now well defined.',
-      'Claudia moves between the creation of sculptures and “Sculptures of light” made from lamps. In both languages, light is the protagonist. Papier-mâché is the artist’s material of choice for her works.',
-      'Claudia’s style is minimal yet of great impact, meticulous, attentive and refined; her works are distinguished by an abstraction in which paper comes to life through soft movements, where light and shadow seem to chase each other in a gentle dance.',
-    ],
-  },
-  signature: { it: 'Beatrice Cordaro', en: 'Beatrice Cordaro' },
-  role: { it: 'Storico dell’arte e curatore', en: 'Art historian and curator' },
-  seeWorks: { it: 'Guarda i lavori', en: 'See the works' },
-  lampAlt: {
-    it: 'Ballerina di Flamenco, lampada di carta a forma di figura danzante con gonna ampia',
-    en: 'Flamenco Dancer, a paper lamp shaped like a dancing figure with a wide skirt',
   },
   closing: { it: 'Opere, mostre, laboratori e progetti su misura.', en: 'Works, exhibitions, workshops and bespoke projects.' },
-  exhibitions: { it: 'Le mie mostre', en: 'My exhibitions' },
   contact: { it: 'Contattami', en: 'Get in touch' },
 };
 ---
 
-<Layout title="About" lang={lang} description={t(copy.description)} image={photo('about/claudia')} jsonLd={[personExtra]}>
+<Layout title="About me" lang={lang} description={t(copy.description)} image={photo('about/claudia')} jsonLd={[personExtra]}>
   <section class="page-hero">
-    <div class="wrap split split--wide-text" style="align-items:end">
+    <div class="wrap split split--wide-text" style="align-items:center">
       <div>
         <p class="label muted" style="margin-bottom:1.6rem">{t(copy.kicker)}</p>
         <h1 class="display-xl" style="max-width:12ch">Claudia D'Andrea</h1>
         <p class="lede" style="margin-top:2rem;max-width:30ch">{t(copy.lead)}</p>
       </div>
-      <div data-reveal="image" style="justify-self:end;width:min(100%,24rem)">
-        <Photo name="about/claudia" alt={t(copy.photoAlt)} sizes="(min-width: 860px) 24rem, 90vw" widths={[400, 700, 1000]} loading="eager" />
+      <div class="portrait-round" data-reveal="image">
+        <Photo name="about/claudia" alt={t(copy.photoAlt)} sizes="(min-width: 860px) 24rem, 80vw" widths={[400, 700, 1000]} loading="eager" />
       </div>
     </div>
   </section>
@@ -104,39 +73,10 @@ const copy = {
     </div>
   </section>
 
-  <section id="la-mia-arte" class="is-night section" aria-labelledby="arte-title" style="scroll-margin-top:0">
-    <div class="wrap split split--wide-text" style="align-items:start">
-      <div data-reveal>
-        <figure style="margin:0 0 3rem">
-          <blockquote style="margin:0">
-            <p class="display-md" style="max-width:24ch">{t(copy.quote)}</p>
-          </blockquote>
-          <figcaption class="label muted" style="margin-top:1.2rem">Georgia O&rsquo;Keeffe</figcaption>
-        </figure>
-        <h2 id="arte-title" class="display-lg" style="max-width:20ch">{t(copy.artTitle)}</h2>
-        <p class="lede" style="margin-top:1.6rem;max-width:30ch">{t(copy.artQuestion)}</p>
-        <div class="prose muted" style="margin-top:2rem">
-          {tr(copy.art, lang).map((p) => <p>{p}</p>)}
-        </div>
-        <p style="margin-top:2rem">
-          <span class="display-md" style="font-size:1.4rem">{t(copy.signature)}</span><br />
-          <span class="label muted">{t(copy.role)}</span>
-        </p>
-        <p style="margin-top:2.4rem"><a href={route('works', lang)} class="cta">{t(copy.seeWorks)}</a></p>
-      </div>
-      <div data-reveal="image" style="--d:150ms;justify-self:end;width:min(100%,24rem)">
-        <Photo name="lavori/ballerina-di-flamenco" alt={t(copy.lampAlt)} sizes="(min-width: 860px) 24rem, 90vw" widths={[400, 700, 1000]} />
-      </div>
-    </div>
-  </section>
-
   <section class="section">
     <div class="wrap" style="display:grid;gap:1.8rem;justify-items:start">
       <p class="display-md" style="max-width:26ch">{t(copy.closing)}</p>
-      <div style="display:flex;flex-wrap:wrap;gap:1.6rem 3rem">
-        <a href={route('exhibitions', lang)} class="cta">{t(copy.exhibitions)}</a>
-        <a href={route('contact', lang)} class="cta">{t(copy.contact)}</a>
-      </div>
+      <a href={route('contact', lang)} class="cta">{t(copy.contact)}</a>
     </div>
   </section>
 </Layout>

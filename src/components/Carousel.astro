@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from 'astro:assets';
 import Icon from './Icon.astro';
-import { photo, type Shot } from '../data/photos';
+import { photo, titleOf, type Shot } from '../data/photos';
 import { tr, ui, type Lang } from '../i18n';
 
 interface Props {
@@ -20,7 +20,9 @@ const { shots, group, poster, lang = 'it', label } = Astro.props;
 const prep = async (s: Shot, w: number) => {
   const meta = photo(s.key);
   const large = await getImage({ src: meta, width: Math.min(1800, meta.width), format: 'webp', quality: 80 });
-  return { ...s, alt: tr(s.alt, lang), meta, large: large.src, w };
+  // didascalia visibile: solo il titolo dell'opera (e, se presente, misure/tecnica); mai la descrizione automatica
+  const cap = [titleOf(s, lang), s.caption].filter(Boolean).join(' — ');
+  return { ...s, alt: tr(s.alt, lang), cap, meta, large: large.src, w };
 };
 const items = await Promise.all(shots.map((s) => prep(s, 0)));
 const post = poster ? await prep(poster, 0) : null;
@@ -30,7 +32,7 @@ const post = poster ? await prep(poster, 0) : null;
   {
     post && (
       <figure class="lab-poster" data-reveal="image">
-        <a href={post.large} data-lightbox={group} data-caption={post.alt} data-alt={post.alt}>
+        <a href={post.large} data-lightbox={group} data-caption={post.cap} data-alt={post.alt}>
           <Image src={post.meta} alt={post.alt} widths={[320, 520, 800]} sizes="(min-width: 860px) 16rem, 60vw" format="webp" quality={78} loading="lazy" decoding="async" />
         </a>
       </figure>
@@ -44,7 +46,7 @@ const post = poster ? await prep(poster, 0) : null;
             class="carousel__item"
             href={it.large}
             data-lightbox={group}
-            data-caption={[it.title, it.alt].filter(Boolean).join(' — ')}
+            data-caption={it.cap}
             data-alt={it.alt}
           >
             <Image

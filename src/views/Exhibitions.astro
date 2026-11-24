@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import Gallery from '../components/Gallery.astro';
+import Carousel from '../components/Carousel.astro';
 import { exhibitions } from '../data/exhibitions';
 import { photo } from '../data/photos';
 import { tr, type L, type Lang } from '../i18n';
@@ -16,8 +16,8 @@ const copy = {
   title: { it: 'Mostre', en: 'Exhibitions' },
   seo: { it: 'Mostre personali e collettive', en: 'Solo and group exhibitions' },
   description: {
-    it: "Le mostre di Claudia D'Andrea, paper artist: personali e collettive da Firenze a Londra, da Zagarolo a Benevento.",
-    en: "The exhibitions of Claudia D'Andrea, paper artist: solo and group shows from Florence to London, from Zagarolo to Benevento.",
+    it: "Le mostre di Claudia D'Andrea, paper artist: personali e collettive dal 2022 a oggi, da Firenze a Londra, da Zagarolo a Benevento.",
+    en: "The exhibitions of Claudia D'Andrea, paper artist: solo and group shows from 2022 to today, from Florence to London, from Zagarolo to Benevento.",
   },
   lead: {
     it: 'Personali e collettive – un percorso dal 2022 ad oggi.',
@@ -69,7 +69,7 @@ const years = [...new Set(exhibitions.map((e) => e.year))].sort((a, b) => b - a)
                     </p>
                     {e.shots && (
                       <div class="ex-feature">
-                        <Gallery shots={e.shots} group={`mostra-${e.slug}`} lang={lang} calm />
+                        <Carousel shots={e.shots} group={`mostra-${e.slug}`} lang={lang} label={e.title} />
                       </div>
                     )}
                   </article>

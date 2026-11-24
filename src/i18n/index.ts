@@ -8,7 +8,7 @@ export type L<T = string> = { it: T; en: T };
 
 export const tr = <T>(v: L<T>, lang: Lang): T => v[lang];
 
-export type RouteKey = 'home' | 'works' | 'services' | 'workshops' | 'exhibitions' | 'about' | 'contact' | 'privacy';
+export type RouteKey = 'home' | 'works' | 'services' | 'workshops' | 'exhibitions' | 'about' | 'artwork' | 'contact' | 'privacy';
 
 export const routes: Record<RouteKey, L> = {
   home: { it: '/', en: '/en' },
@@ -17,6 +17,7 @@ export const routes: Record<RouteKey, L> = {
   workshops: { it: '/laboratori', en: '/en/workshops' },
   exhibitions: { it: '/mostre', en: '/en/exhibitions' },
   about: { it: '/about', en: '/en/about' },
+  artwork: { it: '/my-artwork', en: '/en/my-artwork' },
   contact: { it: '/contatti', en: '/en/contact' },
   privacy: { it: '/privacy', en: '/en/privacy' },
 };
@@ -42,7 +43,8 @@ export const nav: { key: RouteKey; label: L }[] = [
   { key: 'services', label: { it: 'Servizi', en: 'Services' } },
   { key: 'workshops', label: { it: 'Laboratori', en: 'Workshops' } },
   { key: 'exhibitions', label: { it: 'Mostre', en: 'Exhibitions' } },
-  { key: 'about', label: { it: 'About', en: 'About' } },
+  { key: 'about', label: { it: 'About me', en: 'About me' } },
+  { key: 'artwork', label: { it: 'My artwork', en: 'My artwork' } },
   { key: 'contact', label: { it: 'Contatti', en: 'Contact' } },
 ];
 
@@ -67,6 +69,10 @@ export const ui = {
   },
   goContact: { it: 'Vai alla pagina contatti', en: 'Go to the contact page' },
   privacy: { it: 'Privacy', en: 'Privacy' },
+  rights: {
+    it: 'Tutti i diritti sono riservati. Opere, fotografie e testi di questo sito non possono essere copiati, riprodotti o utilizzati senza autorizzazione scritta dell’autrice.',
+    en: 'All rights reserved. The artworks, photographs and texts on this website may not be copied, reproduced or used without the author’s written permission.',
+  },
   whatsapp: { it: 'Scrivimi su WhatsApp', en: 'Message me on WhatsApp' },
   seeAll: { it: 'Vedi tutti', en: 'See all' },
   scroll: { it: 'Scorri alla sezione successiva', en: 'Scroll to the next section' },

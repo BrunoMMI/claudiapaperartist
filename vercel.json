@@ -9,7 +9,22 @@
     },
     {
       "source": "/about-my-art",
-      "destination": "/about#la-mia-arte",
+      "destination": "/my-artwork",
+      "permanent": true
+    },
+    {
+      "source": "/about-my-artwork",
+      "destination": "/my-artwork",
+      "permanent": true
+    },
+    {
+      "source": "/en/about-my-art",
+      "destination": "/en/my-artwork",
+      "permanent": true
+    },
+    {
+      "source": "/en/about-my-artwork",
+      "destination": "/en/my-artwork",
       "permanent": true
     },
     {

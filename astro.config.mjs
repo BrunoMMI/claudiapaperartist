@@ -17,7 +17,35 @@ export default defineConfig({
   adapter: vercel(),
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [sitemap({ filter: (p) => !p.includes('/privacy') })],
+  // nel sitemap ogni pagina riporta anche la versione nell'altra lingua (hreflang); le rotte vanno tenute allineate a src/i18n/index.ts
+  integrations: [
+    sitemap({
+      serialize(item) {
+        const pairs = [
+          ['/', '/en'],
+          ['/lavori', '/en/works'],
+          ['/servizi', '/en/services'],
+          ['/laboratori', '/en/workshops'],
+          ['/mostre', '/en/exhibitions'],
+          ['/about', '/en/about'],
+          ['/my-artwork', '/en/my-artwork'],
+          ['/contatti', '/en/contact'],
+          ['/privacy', '/en/privacy'],
+        ];
+        const path = new URL(item.url).pathname.replace(/\/$/, '') || '/';
+        const pair = pairs.find(([it, en]) => it === path || en === path);
+        if (pair) {
+          const origin = new URL(item.url).origin;
+          const abs = (/** @type {string} */ p) => origin + (p === '/' ? '/' : p);
+          item.links = [
+            { url: abs(pair[0]), lang: 'it-IT' },
+            { url: abs(pair[1]), lang: 'en-GB' },
+          ];
+        }
+        return item;
+      },
+    }),
+  ],
   vite: { plugins: [tailwindcss()] },
   env: {
     schema: {

@@ -11,6 +11,7 @@ interface Props {
   loading?: 'lazy' | 'eager';
   fetchpriority?: 'high' | 'low' | 'auto';
   class?: string;
+  style?: string;
   quality?: number;
 }
 
@@ -22,6 +23,7 @@ const {
   loading = 'lazy',
   fetchpriority,
   class: className,
+  style,
   quality = 76,
 } = Astro.props;
 
@@ -39,4 +41,5 @@ const src = photo(name);
   decoding="async"
   fetchpriority={fetchpriority}
   class={className}
+  style={style}
 />

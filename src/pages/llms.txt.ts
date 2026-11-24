@@ -17,7 +17,7 @@ export const GET: APIRoute = () => {
 > ${site.description.it}
 > ${site.description.en}
 
-${site.name} is a self-taught Italian paper artist. Her research is based on the study of light: she works with paper and papier-mâché to create sculptures, paper lamps, light installations and scenographic set designs, and leads creative paper workshops for adults and children. She has exhibited in Italy and abroad (Florence, Genoa, Turin, Rome, Benevento, London).
+${site.name} is a self-taught Italian paper artist. Her research is based on the study of light: she works with paper and papier-mâché to create sculptures, paper lamps, light installations and scenographic set designs, and leads creative paper workshops for adults and children. She has exhibited in Italy and abroad (Florence, Genoa, Turin, Rome, Benevento, London). The page "About my artwork" is a critical text on her work, written by the writer Giovanna Del Vecchio.
 
 ${site.name} è un'artista autodidatta. La sua ricerca si fonda sullo studio della luce: lavora con carta e cartapesta per realizzare sculture, paper lamps, installazioni luminose e allestimenti scenografici, e conduce laboratori creativi per adulti e bambini. Ha esposto in Italia e all'estero.
 
@@ -25,6 +25,7 @@ ${site.name} è un'artista autodidatta. La sua ricerca si fonda sullo studio del
 - Paper sculptures / Sculture di carta: unique, hand-shaped works made to measure.
 - Light installations / Installazioni luminose: compositions of light, paper and transparencies.
 - Set designs and events / Allestimenti ed eventi: scenography for events and special occasions.
+- Set designs / Allestimenti: paper scenography for parties and events, also shown in the Works page.
 - Creative workshops / Laboratori creativi: paper and papier-mâché workshops for adults and children, including the Christmas workshop "Christmas lights" (max 10 people).
 
 ## Pages / Pagine

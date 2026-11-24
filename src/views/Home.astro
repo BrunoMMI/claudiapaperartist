@@ -20,13 +20,17 @@ const copy = {
     it: "Sculture di carta, installazioni luminose, allestimenti ed eventi su misura, laboratori creativi. Il portfolio di Claudia D'Andrea, paper artist.",
     en: "Paper sculptures, light installations, bespoke set designs and events, creative workshops. The portfolio of Claudia D'Andrea, paper artist.",
   },
+  pageTitle: {
+    it: "Claudia D'Andrea · Paper Artist: sculture di carta e luce",
+    en: "Claudia D'Andrea · Paper Artist: paper sculptures and light",
+  },
   heroAlt: {
     it: 'Atena, scultura di carta bianca con una chioma di rami, su fondo nero',
     en: 'Athena, a white paper sculpture with a crown of branches, on a black background',
   },
   kicker1: { it: 'Sculture di carta – Installazioni luminose', en: 'Paper sculptures – Light installations' },
   kicker2: { it: 'Allestimenti – Eventi – Laboratori', en: 'Set designs – Events – Workshops' },
-  title: { it: 'Do forma alla luce e alla carta.', en: 'I give shape to light and paper.' },
+  title: { it: 'La carta trattiene la luce prima di trattenere la forma.', en: 'Paper holds light before it holds form.' },
   cta: { it: 'Scopri il mio lavoro', en: 'Discover my work' },
   intro: {
     it: 'Realizzo sculture di carta, installazioni luminose e allestimenti su misura per spazi che vogliono emozionare.',
@@ -60,7 +64,7 @@ const copy = {
 const link = (l: { route: 'works' | 'services' | 'workshops'; hash?: string }) => route(l.route, lang, l.hash);
 ---
 
-<Layout tone="light" lang={lang} description={t(copy.description)} image={photo('lavori/atena-1')}>
+<Layout tone="light" lang={lang} fullTitle={t(copy.pageTitle)} description={t(copy.description)} image={photo('lavori/atena-1')}>
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__media">
@@ -130,10 +134,10 @@ const link = (l: { route: 'works' | 'services' | 'workshops'; hash?: string }) =
       {
         featured.map((f, i) => (
           <li data-reveal style={`--d:${i * 70}ms`}>
-            <a href={f.to === 'allestimenti-ed-eventi' ? route('services', lang, f.to) : route('works', lang, f.to)}>
+            <a href={route('works', lang, f.to)}>
               <figure>
                 <div class="selection__img">
-                  <Photo name={f.key} alt={t(f.alt)} sizes="(min-width: 900px) 20vw, 50vw" widths={[360, 560, 800]} />
+                  <Photo name={f.key} alt={t(f.alt)} sizes="(min-width: 900px) 20vw, 50vw" widths={[360, 560, 800]} style={f.pos ? `object-position:${f.pos}` : undefined} />
                 </div>
                 <figcaption>
                   <span class="label">{t(f.kind)}</span>
@@ -156,7 +160,7 @@ const link = (l: { route: 'works' | 'services' | 'workshops'; hash?: string }) =
       <blockquote data-reveal>
         <p class="display-lg">{t(copy.quote)}</p>
       </blockquote>
-      <a href={route('about', lang, 'la-mia-arte')} class="cta" data-reveal style="--d:200ms">{t(copy.approach)}</a>
+      <a href={route('artwork', lang)} class="cta" data-reveal style="--d:200ms">{t(copy.approach)}</a>
     </div>
   </section>
 

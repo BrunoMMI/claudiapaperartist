@@ -8,6 +8,8 @@ import ogDefault from '../assets/og-default.jpg';
 
 interface Props {
   title?: string;
+  /** titolo completo che sostituisce "titolo · nome" (usato dalla home) */
+  fullTitle?: string;
   description?: string;
   /** "light" per pagine con testata scura */
   tone?: 'light' | 'dark';
@@ -20,11 +22,11 @@ interface Props {
   type?: 'website' | 'article';
 }
 
-const { title, description: descriptionProp, lang = 'it', tone = 'dark', image, jsonLd = [], noindex = false, type = 'website' } = Astro.props;
+const { title, fullTitle: fullTitleProp, description: descriptionProp, lang = 'it', tone = 'dark', image, jsonLd = [], noindex = false, type = 'website' } = Astro.props;
 const description = descriptionProp ?? site.description[lang];
 const other: Lang = lang === 'it' ? 'en' : 'it';
 
-const fullTitle = title ? `${title} · ${site.name}` : site.title;
+const fullTitle = fullTitleProp ?? (title ? `${title} · ${site.name}` : site.title);
 const pathname = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/$/, '');
 const base = SITE_URL || Astro.site?.origin || '';
 const canonical = `${base}${pathname === '/' ? '' : pathname}` || base;
@@ -58,7 +60,18 @@ const crumbs = pathname === '/' || pathname === '/en' || !title
         ],
       },
     ];
-const graph = { '@context': 'https://schema.org', '@graph': [person, website, ...crumbs, ...jsonLd] };
+const webPage = {
+  '@type': 'WebPage',
+  '@id': `${canonical}#webpage`,
+  url: canonical,
+  name: fullTitle,
+  description,
+  inLanguage: lang === 'it' ? 'it-IT' : 'en-GB',
+  isPartOf: { '@id': `${base}/#website` },
+  about: { '@id': `${base}/#claudia` },
+  primaryImageOfPage: { '@type': 'ImageObject', url: og },
+};
+const graph = { '@context': 'https://schema.org', '@graph': [person, website, webPage, ...crumbs, ...jsonLd] };
 ---
 
 <!doctype html>
@@ -72,6 +85,7 @@ const graph = { '@context': 'https://schema.org', '@graph': [person, website, ..
     {INDEXABLE && <link rel="canonical" href={canonical} />}
     {INDEXABLE && <link rel="alternate" hreflang={lang} href={selfAlt} />}
     {INDEXABLE && <link rel="alternate" hreflang={other} href={altUrl} />}
+    {INDEXABLE && <link rel="alternate" hreflang="x-default" href={lang === 'it' ? selfAlt : altUrl} />}
     <meta name="theme-color" content="#f5f3ef" />
 
     <link rel="icon" href="/favicon.png" type="image/png" sizes="64x64" />

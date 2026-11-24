@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Photo from '../components/Photo.astro';
+import { photo } from '../data/photos';
+import { site } from '../config/site';
+import { route, tr, type L, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = (v: L) => tr(v, lang);
+
+const copy = {
+  title: { it: 'About my artwork', en: 'About my artwork' },
+  seo: { it: 'About my artwork: la luce nella carta', en: 'About my artwork: light in paper' },
+  description: {
+    it: 'Un testo critico sulle opere di Claudia D’Andrea: carta, cartone e scarti trasformati in sculture di donne e di luce, tra fragilità, energia e pace.',
+    en: 'A critical text on the artwork of Claudia D’Andrea: paper, cardboard and scraps turned into sculptures of women and light, between fragility, energy and peace.',
+  },
+  quote: {
+    it: '“Trova ciò che accende una luce in te, così che tu, a modo tuo, possa illuminare il mondo.”',
+    en: '“Find what sparks a light in you so that you, in your own way, can illuminate the world.”',
+  },
+  quoteBy: { it: 'Oprah Winfrey', en: 'Oprah Winfrey' },
+  text: {
+    it: [
+      'L’artista intraprende il suo percorso creativo dopo un lungo periodo in cui l’arte è rimasta sullo sfondo, un desiderio custodito in silenzio. La svolta coincide con il tempo sospeso di un mondo che si ferma: proprio nel chiuso di quei giorni complessi, inizia la sua ricerca della luce.',
+      'Nel suo universo espressivo, la materia prima è umile e quotidiana: carta, cartone e scarti destinati allo scarto. Nelle sue mani, un foglio spiegato che torna a distendersi perde la sua forma originaria per accoglierne una nuova, trasformandosi in un’opera d’arte. Sceglie la carta per la sua duplice natura, infinitamente delicata e al tempo stesso forte e resistente, in una profonda metafora dell’essere umano, capace di oscillare tra giorni di fragilità e momenti di prorompente energia.',
+      'Le sue sculture danno vita a figure di donne che fioriscono dal vissuto, dalle note di una melodia, dalle sfumature di un tramonto e, soprattutto, dalle storie e dagli abbracci di innumerevoli figure femminili incontrate lungo il cammino, custodi di un insegnamento di condivisione e appartenenza. Per lei, scolpire non è semplicemente un’attività artistica, ma un atto vitale: è respiro, terapia, libertà e connessione profonda con le forme.',
+      'Attraverso un’estetica essenziale e minimale, la sua ricerca artistica persegue un intento universale: accogliere ciò che appare privo di valore per rigenerarlo, donargli armonia e infondere in ogni ambiente e nel cuore di chi osserva, un profondo senso di pace e di luce.',
+    ],
+    en: [
+      'The artist began her creative journey after a long period in which art remained in the background, a desire kept in silence. The turning point coincided with the suspended time of a world that comes to a halt: it was precisely within the confinement of those difficult days that her search for light began.',
+      'In her expressive universe, the raw material is humble and everyday: paper, cardboard and scraps destined to be thrown away. In her hands, a folded sheet that spreads out again loses its original form to welcome a new one, turning into a work of art. She chooses paper for its dual nature, infinitely delicate and at the same time strong and resilient, a profound metaphor for the human being, able to swing between days of fragility and moments of bursting energy.',
+      'Her sculptures give life to figures of women who bloom from lived experience, from the notes of a melody, from the shades of a sunset and, above all, from the stories and embraces of countless female figures met along the way, keepers of a lesson of sharing and belonging. For her, sculpting is not simply an artistic activity but a vital act: it is breath, therapy, freedom and a deep connection with forms.',
+      'Through an essential, minimal aesthetic, her artistic research pursues a universal aim: to welcome what appears to have no value in order to regenerate it, give it harmony and instil, in every space and in the heart of those who look, a deep sense of peace and light.',
+    ],
+  },
+  signature: { it: 'Giovanna Del Vecchio', en: 'Giovanna Del Vecchio' },
+  role: { it: 'Scrittrice', en: 'Writer' },
+  photoAlt: {
+    it: 'Ragazza che legge, lampada di carta in primo piano, e Ballerina sullo sfondo, su una scrivania scura',
+    en: 'Girl Reading, a paper lamp in the foreground, and Dancer in the background, on a dark desk',
+  },
+  seeWorks: { it: 'Guarda i lavori', en: 'See the works' },
+};
+
+const ld = [
+  {
+    '@type': 'Article',
+    headline: t(copy.seo),
+    description: t(copy.description),
+    inLanguage: lang === 'it' ? 'it-IT' : 'en-GB',
+    about: { '@type': 'Person', name: site.name, jobTitle: site.role },
+    author: { '@type': 'Person', name: tr(copy.signature, lang) },
+  },
+];
+---
+
+<Layout title={t(copy.seo)} lang={lang} description={t(copy.description)} image={photo('lavori/ragazza-che-legge-primo-piano')} jsonLd={ld}>
+  <section class="page-hero">
+    <div class="wrap">
+      <h1 class="display-xl" style="max-width:14ch">{t(copy.title)}</h1>
+      <figure class="art-quote">
+        <blockquote style="margin:0">
+          <p class="display-md" style="max-width:26ch">{t(copy.quote)}</p>
+        </blockquote>
+        <figcaption class="label muted" style="margin-top:1.2rem">{t(copy.quoteBy)}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="is-night section" aria-label={t(copy.title)}>
+    <div class="wrap split split--wide-text" style="align-items:start">
+      <div data-reveal>
+        <div class="prose">
+          {tr(copy.text, lang).map((p) => <p>{p}</p>)}
+        </div>
+        <p style="margin-top:2.2rem">
+          <span class="display-md" style="font-size:1.4rem">{t(copy.signature)}</span><br />
+          <span class="label muted">{t(copy.role)}</span>
+        </p>
+        <p style="margin-top:2.4rem"><a href={route('works', lang)} class="cta">{t(copy.seeWorks)}</a></p>
+      </div>
+      <div class="photo-rounded" data-reveal="image" style="--d:150ms;justify-self:end;width:min(100%,32rem)">
+        <Photo name="lavori/ragazza-che-legge-primo-piano" alt={t(copy.photoAlt)} sizes="(min-width: 860px) 32rem, 92vw" widths={[500, 800, 1200]} />
+      </div>
+    </div>
+  </section>
+</Layout>

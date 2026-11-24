@@ -9,66 +9,117 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = (v: L) => tr(v, lang);
+const items = (v: L<string[]>) => tr(v, lang);
 
+/**
+ * Informativa ai sensi degli artt. 13-14 del Regolamento UE 2016/679 (GDPR).
+ * Testo definitivo: non contiene segnaposto. Se cambiano contatti, fornitori o tempi di conservazione, va aggiornato.
+ */
 const c = {
-  description: { it: "Informativa sulla privacy del sito di Claudia D'Andrea.", en: "Privacy policy of Claudia D'Andrea's website." },
-  draft: {
-    it: 'Le parti tra parentesi quadre devono essere completate dalla titolare del sito, e il testo definitivo va verificato da un professionista prima della pubblicazione.',
-    en: 'The parts in square brackets must be completed by the site owner, and the final text must be reviewed by a professional before publication.',
+  description: {
+    it: "Informativa sulla privacy del sito di Claudia D'Andrea: dati trattati, cookie, modulo di contatto, fornitori e diritti dell'utente.",
+    en: "Privacy policy of Claudia D'Andrea's website: data processed, cookies, contact form, providers and your rights.",
   },
-  draftLabel: { it: 'Bozza tecnica.', en: 'Technical draft.' },
+  updated: { it: 'Ultimo aggiornamento: novembre 2026.', en: 'Last updated: November 2026.' },
+  intro: {
+    it: 'Questa informativa spiega quali dati personali vengono trattati quando visiti questo sito o mi scrivi, perché e per quanto tempo, ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679 (GDPR).',
+    en: 'This notice explains which personal data are processed when you visit this website or write to me, why, and for how long, pursuant to Articles 13 and 14 of Regulation (EU) 2016/679 (GDPR).',
+  },
   h1: { it: 'Titolare del trattamento', en: 'Data controller' },
   p1: {
-    it: '[Nome o ragione sociale, indirizzo, partita IVA e recapito della titolare: da fornire.]',
-    en: '[Name or company name, address, VAT number and contact details of the owner: to be provided.]',
+    it: "Il titolare del trattamento è Claudia D'Andrea, artista (Paper Artist), raggiungibile all'indirizzo email indicato qui sotto e al numero WhatsApp pubblicato nella pagina Contatti.",
+    en: "The data controller is Claudia D'Andrea, artist (Paper Artist), reachable at the email address below and at the WhatsApp number published on the Contact page.",
   },
-  contact: { it: 'Contatto per la privacy: ', en: 'Privacy contact: ' },
-  h2: { it: 'Che cosa fa questo sito', en: 'What this site does' },
+  contact: { it: 'Per qualsiasi richiesta sulla privacy: ', en: 'For any privacy request: ' },
+  h2: { it: 'Navigazione e cookie', en: 'Browsing and cookies' },
   p2: {
-    it: 'Il sito non utilizza cookie di profilazione, strumenti di analisi o pubblicità e non installa cookie. I font sono ospitati sul sito stesso. Non vengono caricati script di terze parti.',
-    en: 'The site does not use profiling cookies, analytics or advertising, and does not install cookies. Fonts are hosted on the site itself. No third-party scripts are loaded.',
+    it: 'Il sito non utilizza cookie di profilazione, strumenti di analisi o di pubblicità e non installa alcun cookie sul tuo dispositivo, per questo non compare il banner dei cookie. I caratteri tipografici sono ospitati sul sito stesso e non vengono caricati script di terze parti.',
+    en: 'The website does not use profiling cookies, analytics or advertising tools and does not install any cookie on your device, which is why no cookie banner is shown. Fonts are hosted on the site itself and no third-party scripts are loaded.',
   },
-  h3: { it: 'Modulo di contatto', en: 'Contact form' },
+  p2b: {
+    it: 'Come ogni sito, il server registra automaticamente alcuni dati tecnici di navigazione (indirizzo IP, data e ora, pagina richiesta, browser). Sono usati solo per far funzionare e proteggere il sito (art. 6, par. 1, lett. f GDPR) e conservati per il tempo strettamente necessario dal fornitore di hosting.',
+    en: 'Like every website, the server automatically records some technical browsing data (IP address, date and time, requested page, browser). They are used only to run and protect the site (Art. 6(1)(f) GDPR) and are kept by the hosting provider only for the time strictly necessary.',
+  },
+  h3: { it: 'Modulo di contatto, email e WhatsApp', en: 'Contact form, email and WhatsApp' },
   p3: {
-    it: 'Se scrivi tramite il modulo, vengono trattati nome, indirizzo email, tipo di richiesta e testo del messaggio, al solo scopo di risponderti. Il messaggio viene inoltrato alla casella email della titolare tramite il servizio di invio Resend. [Base giuridica, tempi di conservazione, trasferimenti extra-UE e diritti dell’interessato: da completare.]',
-    en: 'If you write through the form, your name, email address, type of request and message text are processed for the sole purpose of replying to you. The message is forwarded to the owner’s mailbox through the Resend delivery service. [Legal basis, retention periods, transfers outside the EU and data subject rights: to be completed.]',
+    it: 'Se mi scrivi tramite il modulo, tratto il tuo nome, il tuo indirizzo email, il tipo di richiesta e il testo del messaggio, al solo scopo di risponderti e di dare seguito alla tua richiesta (art. 6, par. 1, lett. b GDPR) sulla base del consenso che spunti prima dell’invio. Conferire questi dati è facoltativo, ma senza di essi non posso rispondere.',
+    en: 'If you write to me through the form, I process your name, email address, type of request and message text, solely to reply and follow up on your request (Art. 6(1)(b) GDPR), on the basis of the consent you tick before sending. Providing these data is optional, but without them I cannot reply.',
   },
-  h4: { it: 'Hosting', en: 'Hosting' },
+  p3b: {
+    it: 'Lo stesso vale se mi scrivi via email o via WhatsApp: userò i tuoi recapiti solo per risponderti. WhatsApp è un servizio di terzi, regolato dalla sua informativa.',
+    en: 'The same applies if you write to me by email or WhatsApp: I will use your contact details only to reply. WhatsApp is a third-party service, governed by its own privacy notice.',
+  },
+  p3c: {
+    it: 'Conservo i messaggi per il tempo necessario a gestire la richiesta e, in ogni caso, non oltre 12 mesi dall’ultimo contatto; se ne nasce una collaborazione, i dati necessari restano conservati per gli obblighi di legge connessi. Poi vengono cancellati.',
+    en: 'I keep messages for the time needed to handle your request and, in any case, no longer than 12 months after the last contact; if a collaboration follows, the data needed are kept for the related legal obligations. They are then deleted.',
+  },
+  h4: { it: 'A chi vengono comunicati i dati', en: 'Who receives the data' },
   p4: {
-    it: 'Il sito è ospitato su Vercel, che può registrare i dati tecnici di navigazione (come l’indirizzo IP) nei log del server. [Dettagli da completare.]',
-    en: 'The site is hosted on Vercel, which may record technical browsing data (such as the IP address) in its server logs. [Details to be completed.]',
+    it: 'I dati non vengono venduti né ceduti a terzi per scopi propri. Sono trattati, in qualità di responsabili del trattamento, solo dai fornitori tecnici necessari al servizio:',
+    en: 'The data are not sold or passed on to third parties for their own purposes. They are processed, as data processors, only by the technical providers needed for the service:',
+  },
+  providers: {
+    it: [
+      'Vercel Inc., per l’hosting del sito e l’esecuzione del modulo di contatto;',
+      'Resend, per l’inoltro del messaggio del modulo alla mia casella email;',
+      'Google (Gmail), come casella di posta in cui ricevo i messaggi.',
+    ],
+    en: [
+      'Vercel Inc., for hosting the website and running the contact form;',
+      'Resend, for forwarding the form message to my mailbox;',
+      'Google (Gmail), as the mailbox where I receive messages.',
+    ],
+  },
+  p4b: {
+    it: 'Alcuni di questi fornitori hanno sede negli Stati Uniti: il trasferimento dei dati avviene sulla base di una decisione di adeguatezza (EU-US Data Privacy Framework) o delle clausole contrattuali standard della Commissione europea.',
+    en: 'Some of these providers are based in the United States: data are transferred on the basis of an adequacy decision (EU-US Data Privacy Framework) or the European Commission’s standard contractual clauses.',
   },
   h5: { it: 'I tuoi diritti', en: 'Your rights' },
   p5: {
-    it: '[Elenco dei diritti e modalità di esercizio: da completare.]',
-    en: '[List of rights and how to exercise them: to be completed.]',
+    it: 'In ogni momento puoi chiedere l’accesso ai tuoi dati, la rettifica, la cancellazione, la limitazione del trattamento, la portabilità e puoi opporti al trattamento (artt. 15-22 GDPR); puoi anche revocare il consenso, senza effetto sul trattamento già avvenuto. Per esercitare i tuoi diritti scrivimi all’indirizzo email indicato sopra. Se ritieni che il trattamento violi la normativa, puoi proporre reclamo al Garante per la protezione dei dati personali (garanteprivacy.it).',
+    en: 'At any time you can ask for access to your data, rectification, erasure, restriction of processing, portability, and you can object to the processing (Arts. 15-22 GDPR); you may also withdraw your consent, without affecting processing already carried out. To exercise your rights, write to me at the email address above. If you believe the processing breaches the law, you can lodge a complaint with the Italian Data Protection Authority (garanteprivacy.it).',
+  },
+  h6: { it: 'Link ad altri siti', en: 'Links to other websites' },
+  p6: {
+    it: 'Il sito contiene collegamenti a Instagram, Facebook e WhatsApp. Cliccandoli lasci questo sito: ciascuno di questi servizi tratta i dati secondo la propria informativa.',
+    en: 'The website contains links to Instagram, Facebook and WhatsApp. By clicking them you leave this website: each of these services processes data according to its own privacy notice.',
   },
 };
 ---
 
-<Layout title="Privacy" lang={lang} description={t(c.description)} noindex>
+<Layout title="Privacy" lang={lang} description={t(c.description)}>
   <PageHero title="Privacy" />
   <section class="section-tight" style="padding-top:0">
     <div class="wrap">
-      <div class="form-status" style="max-width:38rem;margin-bottom:2.5rem">
-        <strong>{t(c.draftLabel)}</strong> {t(c.draft)}
-      </div>
       <div class="prose">
-        <h2 class="display-md" style="margin-bottom:1rem">{t(c.h1)}</h2>
+        <p>{t(c.intro)}</p>
+        <p class="label muted">{t(c.updated)}</p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h1)}</h2>
         <p>{t(c.p1)}</p>
         <p>{t(c.contact)}<a href={`mailto:${site.email}`} class="inline-link">{site.email}</a></p>
 
         <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h2)}</h2>
         <p>{t(c.p2)}</p>
+        <p>{t(c.p2b)}</p>
 
         <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h3)}</h2>
         <p>{t(c.p3)}</p>
+        <p>{t(c.p3b)}</p>
+        <p>{t(c.p3c)}</p>
 
         <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h4)}</h2>
         <p>{t(c.p4)}</p>
+        <ul>
+          {items(c.providers).map((p) => <li>{p}</li>)}
+        </ul>
+        <p>{t(c.p4b)}</p>
 
         <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h5)}</h2>
         <p>{t(c.p5)}</p>
+
+        <h2 class="display-md" style="margin:2.5rem 0 1rem">{t(c.h6)}</h2>
+        <p>{t(c.p6)}</p>
       </div>
     </div>
   </section>

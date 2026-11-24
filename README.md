@@ -24,18 +24,20 @@ Richiede Node ≥ 22.23.
 | Mostre (elenco completo e gallerie) | `src/data/exhibitions.ts` |
 | Laboratori realizzati e proposti | `src/data/workshops.ts` |
 | Servizi | `src/data/services.ts` |
-| Testo "About" | `src/pages/about.astro` |
+| Testo "About me" (e foto a cerchio) | `src/views/About.astro` |
+| Testo "About my artwork" (testo critico) | `src/views/Artwork.astro` |
 | Colori, font, spaziature | `src/styles/global.css` (blocco `@theme`) |
-| Informativa privacy | `src/pages/privacy.astro` |
+| Informativa privacy | `src/views/Privacy.astro` |
+| Menu e rotte IT/EN | `src/i18n/index.ts` |
 | Redirect dal vecchio sito | `vercel.json` |
 
 ### Aggiungere o cambiare una foto
 
-1. Aggiungi una riga in `PHOTOS` dentro `scripts/prepare-assets.mjs` (chiave → file sorgente).
-2. `npm run assets` (ridimensiona a max 2400 px, applica l'orientamento e **rimuove EXIF/GPS**; i file originali non vengono toccati).
+1. Aggiungi una riga in `PHOTOS` dentro l'ultimo script `scripts/prepare-assets-v3.mjs` (chiave → file sorgente).
+2. `node scripts/prepare-assets-v3.mjs` (ridimensiona a max 2400 px, applica l'orientamento e **rimuove EXIF/GPS**; i file originali non vengono toccati). Gli script `prepare-assets.mjs` e `-v2` sono storici: non rilanciarli, rigenererebbero da zero alcune cartelle.
 3. Usa la chiave (`'lavori/nuova-opera'`) in uno dei file `src/data/*.ts`, con un testo alternativo descrittivo.
 
-Le gallerie non ritagliano mai le foto e si adattano da sole al numero e alle proporzioni delle immagini.
+I caroselli (scorrimento orizzontale) non ritagliano mai le foto e si adattano da soli al numero e alle proporzioni delle immagini. Sotto le foto compare solo il titolo dell'opera (`title`), mai la descrizione: il testo alternativo (`alt`) resta nascosto per accessibilità e motori di ricerca.
 
 ## Pubblicazione su Vercel
 
@@ -52,7 +54,7 @@ Le gallerie non ritagliano mai le foto e si adattano da sole al numero e alle pr
 
 1. *Settings → Domains* su Vercel: aggiungi il dominio e configura i DNS come indicato.
 2. Imposta `PUBLIC_SITE_URL=https://tuodominio.it` (senza slash finale) e rifai il deploy: si attivano indicizzazione, canonical, Open Graph, sitemap (`/sitemap-index.xml`) e `robots.txt`.
-3. Se il nuovo sito sostituisce `claudiadandrea.it`, i redirect 301 già presenti in `vercel.json` mappano le vecchie pagine (`/about-me`, `/about-my-art`, `/my-artworks`, `/sculptures`, `/wall-sculptures`, `/light`, `/paper-lamps`, `/exhibitions`, `/contact`) su quelle nuove.
+3. Se il nuovo sito sostituisce `claudiadandrea.it`, i redirect 301 già presenti in `vercel.json` mappano le vecchie pagine (`/about-me`, `/about-my-art` → `/my-artwork`, `/my-artworks`, `/sculptures`, `/wall-sculptures`, `/light`, `/paper-lamps`, `/exhibitions`, `/contact`) su quelle nuove.
 4. Facoltativo: verifica il dominio su Resend e usa un mittente del tuo dominio in `CONTACT_FROM_EMAIL`.
 
 ## Modulo contatti
@@ -65,7 +67,7 @@ Per una protezione più forte si può aggiungere un captcha (es. Cloudflare Turn
 ```
 src/
   assets/       logo e foto elaborate (generate da scripts/prepare-assets.mjs)
-  components/   Header, Footer, Gallery, Photo, PageHero, Icon
+  components/   Header, Footer, Carousel, Photo, PageHero, Icon
   config/       impostazioni del sito
   data/         contenuti (opere, mostre, laboratori, servizi)
   layouts/      Layout.astro (SEO, JSON-LD, struttura)
@@ -77,7 +79,7 @@ scripts/        strumenti da riga di comando (asset, controllo link)
 
 ## Da completare a cura di Claudia
 
-- **Informativa privacy** (`/privacy`, ora `noindex`): titolare, P.IVA, base giuridica, conservazione, diritti. Va verificata da un professionista.
+- **Informativa privacy** (`/privacy`): testo definitivo, senza segnaposto. Se cambiano contatti, fornitori o tempi di conservazione, va aggiornata (e riletta da un professionista).
 - **Telefono, indirizzo dello studio, P.IVA**: non presenti nei materiali né sul vecchio sito; si inseriscono in `src/config/site.ts` (`phone`, `address`) e compaiono da soli.
 - **Ritratto di Claudia** per la pagina About: non c'è nelle cartelle.
 - **Luoghi** dei laboratori proposti (Carta e luce, Fiori di carta): nel documento erano segnati "(luogo)".

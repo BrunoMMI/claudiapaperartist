@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Carousel from '../components/Carousel.astro';
+import Photo from '../components/Photo.astro';
 import { categories } from '../data/works';
 import { photo } from '../data/photos';
 import { tr, type L, type Lang } from '../i18n';
@@ -14,10 +15,10 @@ const t = (v: L) => tr(v, lang);
 
 const copy = {
   title: { it: 'Lavori', en: 'Works' },
-  seo: { it: 'Sculture di carta e installazioni luminose', en: 'Paper sculptures and light installations' },
+  seo: { it: 'Sculture, installazioni e allestimenti', en: 'Sculptures, installations, set designs' },
   description: {
-    it: "Installazioni luminose, sculptures e paper lamps: una selezione delle opere in carta di Claudia D'Andrea.",
-    en: "Light installations, sculptures and paper lamps: a selection of paper works by Claudia D'Andrea.",
+    it: "Installazioni luminose, sculptures, paper lamps e allestimenti: una selezione delle opere in carta e cartapesta di Claudia D'Andrea, paper artist.",
+    en: "Light installations, sculptures, paper lamps and set designs: a selection of paper and papier-mâché works by Claudia D'Andrea, paper artist.",
   },
   lead: {
     it: 'Una selezione di opere divise per categorie e tecniche utilizzate, un viaggio in un mondo fatto di luce, forme, materiali e sensazioni.',
@@ -67,7 +68,12 @@ const isLight = (key: string) => key.startsWith('lavori/light-');
         const light = c.shots.filter((s) => isLight(s.key));
         const main = c.shots.filter((s) => !isLight(s.key));
         return (
-          <section id={c.slug} class="cat-block" aria-labelledby={`h-${c.slug}`}>
+          <section id={c.slug} class:list={['cat-block', { 'has-backdrop': !!c.backdrop }]} aria-labelledby={`h-${c.slug}`}>
+            {c.backdrop && (
+              <div class="cat-backdrop" aria-hidden="true">
+                <Photo name={c.backdrop} alt="" sizes="(min-width: 900px) 40vw, 80vw" widths={[600, 900, 1400]} />
+              </div>
+            )}
             <div class="wrap cat-head">
               <h2 id={`h-${c.slug}`} class="display-lg" data-reveal>{t(c.title)}</h2>
               <div data-reveal style="--d:100ms">
