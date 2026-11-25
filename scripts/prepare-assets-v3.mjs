@@ -15,6 +15,8 @@ import path from 'node:path';
 const SRC = process.env.NEW_SOURCE ?? 'C:/Users/D3t3c/Desktop/Sito Claudiaaa';
 /** cartella "Nuova cartella (2)": foto del 24/11/2026 (prefisso "N3:" nelle chiavi sotto) */
 const SRC3 = process.env.NEW_SOURCE_3 ?? 'C:/Users/D3t3c/Desktop/Nuova cartella (2)';
+/** prefisso "DESK:" nelle chiavi sotto = file direttamente sul Desktop */
+const DESK = process.env.DESKTOP_DIR ?? 'C:/Users/D3t3c/Desktop';
 const OUT = path.resolve('src/assets/photos');
 const MAX_EDGE = 2400;
 
@@ -24,8 +26,6 @@ const PHOTOS = {
   'lavori/ragazza-che-legge': 'Paper lamps/Ragazza che legge.jpg',
   'lavori/ragazza-che-legge-primo-piano': 'Paper lamps/Ragazza che legge in primo piano.jpg',
   // Allestimenti: foto non ancora presenti nel sito
-  // Installazioni luminose: Primavera fotografata di giorno (sostituisce "primavera-dettaglio" nella galleria)
-  'lavori/primavera-giorno': 'N3:WhatsApp Image 2026-11-24 at 04.20.06 (5).jpeg',
   // Installazioni luminose: Estate fotografata di giorno
   'lavori/estate-giorno': 'N3:WhatsApp Image 2026-11-24 at 04.20.05 (10).jpeg',
   // Installazioni luminose: Autunno fotografato di giorno
@@ -66,19 +66,22 @@ const PHOTOS = {
   'mostre/luce-di-carta-visitatrice': 'Luce di Carta Modifiche/IMG_1014.JPG',
   'mostre/luce-di-carta-corridoio': 'Luce di Carta Modifiche/IMG_1024.JPG',
   'mostre/luce-di-carta-parete-blu': 'Luce di Carta Modifiche/IMG_1028.JPG',
+  // Installazioni luminose: Primavera intera, gonna di fiori rosa e fucsia (sostituisce "primavera-giorno")
+  'lavori/primavera-rosa': 'DESK:WhatsApp Image 2026-11-24 at 14.12.44.jpeg',
+  // Laboratori · Christmas lights: ghirlanda con villaggio di carta illuminato
+  'laboratori/officina-17': 'DESK:WhatsApp Image 2026-11-24 at 11.43.31.jpeg',
   // Sfondi: fiori di carta su fondo scuro
-  'sfondi/fiore-1': 'Altri sfondi/20261111_131117.jpg',
 };
 
 for (const [key, rel] of Object.entries(PHOTOS)) {
-  const srcFile = rel.startsWith('N3:') ? path.join(SRC3, rel.slice(3)) : path.join(SRC, rel);
+  const srcFile = rel.startsWith('DESK:') ? path.join(DESK, rel.slice(5)) : rel.startsWith('N3:') ? path.join(SRC3, rel.slice(3)) : path.join(SRC, rel);
   if (!fs.existsSync(srcFile)) {
     console.log('– salto (file sorgente non più presente, foto già importata):', key);
     continue;
   }
   const dst = path.join(OUT, `${key}.jpg`);
   fs.mkdirSync(path.dirname(dst), { recursive: true });
-  await sharp(rel.startsWith('N3:') ? path.join(SRC3, rel.slice(3)) : path.join(SRC, rel))
+  await sharp(srcFile)
     .rotate()
     .resize({ width: MAX_EDGE, height: MAX_EDGE, fit: 'inside', withoutEnlargement: true })
     .flatten({ background: '#ffffff' })

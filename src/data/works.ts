@@ -10,8 +10,6 @@ export interface WorkCategory {
   intro: L<string[]>;
   cover: string;
   coverAlt: L;
-  /** sfondo decorativo (fiore di carta su fondo scuro) dietro l'intestazione della categoria, opzionale */
-  backdrop?: string;
   shots: Shot[];
 }
 
@@ -33,7 +31,6 @@ export const categories: WorkCategory[] = [
         'The figures of the seasons and Athena are made to inhabit a space and change its atmosphere.',
       ],
     },
-    backdrop: 'sfondi/fiore-1',
     cover: 'lavori/autunno',
     coverAlt: {
       it: 'Installazione luminosa Autunno: figura di carta con gonna illuminata in arancio e rosso',
@@ -43,7 +40,7 @@ export const categories: WorkCategory[] = [
       { key: 'lavori/atena-3', title: 'Atena', alt: { it: 'Atena in una sala dal pavimento a scacchi, con la base che emana una luce calda', en: 'Athena in a hall with a checkered floor, her base giving off a warm light' } },
       { key: 'lavori/atena-2', title: 'Atena', alt: { it: 'Atena in uno spazio dalle pareti consumate, con la base illuminata', en: 'Athena in a space with weathered walls, her base lit' } },
       { key: 'lavori/primavera-2', title: 'Primavera', alt: { it: 'Dettaglio della figura Primavera, con gonna luminosa di fiori di carta', en: 'Detail of the Spring figure, with a glowing skirt of paper flowers' } },
-      { key: 'lavori/primavera-giorno', title: 'Primavera', alt: { it: 'Primavera alla luce del giorno: figura di carta con chioma gialla, busto rosa e gonna di fiori di carta rosa e fucsia', en: 'Spring in daylight: paper figure with yellow hair, a pink bodice and a skirt of pink and fuchsia paper flowers' } },
+      { key: 'lavori/primavera-rosa', title: 'Primavera', alt: { it: 'Primavera: figura di carta con chioma gialla, busto rosa e grande gonna di fiori rosa e fucsia, con in mano un piccolo fiore di carta colorato', en: 'Spring: paper figure with yellow hair, a pink bodice and a large skirt of pink and fuchsia flowers, holding a small colourful paper flower' } },
       { key: 'lavori/estate', title: 'Estate', alt: { it: 'Estate: figura di carta con gonna illuminata in giallo e arancio e un mazzo di fiori in mano', en: 'Summer: paper figure with a skirt lit in yellow and orange, holding a bunch of flowers' } },
       { key: 'lavori/estate-giorno', title: 'Estate', alt: { it: 'Estate alla luce del giorno: figura di carta con busto verde, gonna di grandi fiori gialli e un mazzo di fiori colorati in mano', en: 'Summer in daylight: paper figure with a green bodice, a skirt of large yellow flowers and a bunch of colourful flowers in her hand' } },
       { key: 'lavori/autunno', title: 'Autunno', alt: { it: 'Autunno: figura di carta con abito arancione e gonna luminosa rossa e arancio', en: 'Autumn: paper figure with an orange dress and a glowing red and orange skirt' } },

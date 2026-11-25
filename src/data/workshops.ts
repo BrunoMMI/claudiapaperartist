@@ -32,12 +32,12 @@ export const workshops: Workshop[] = [
         'Guided by Claudia D’Andrea and the beekeeper Armando Valerino, participants discover the world of paper: they recycle scraps and enrich the pulp with seeds of wild, nectar-bearing flowers, to get to know the delicate universe of pollinators up close.',
       ],
     },
+    poster: { key: 'laboratori/urban-paper-6', alt: { it: 'Pagina del sito WWF dedicata all’evento “Urban Paper: dalla carta al fiore”, Urban Nature 2026', en: 'WWF web page for the event “Urban Paper: from paper to flower”, Urban Nature 2026' } },
     shots: [
       { key: 'laboratori/urban-paper-1', alt: { it: 'La sala del laboratorio Urban paper: una proiezione di un fiore sullo schermo, il relatore e il pubblico seduto', en: 'The Urban paper workshop room: a projection of a flower on the screen, the speaker and the seated audience' } },
       { key: 'laboratori/urban-paper-2', alt: { it: 'Un kit con carta, bustine di semi e il programma dell’evento Urban Nature', en: 'A kit with paper, seed packets and the programme of the Urban Nature event' } },
       { key: 'laboratori/urban-paper-4', alt: { it: 'Bambini al lavoro con la carta gialla e i rotoli di cartone a un tavolo del laboratorio', en: 'Children working with yellow paper and cardboard tubes at a workshop table' } },
       { key: 'laboratori/urban-paper-5', alt: { it: 'Una partecipante lavora la carta a un tavolo, tra fogli e fiori colorati', en: 'A participant working paper at a table, among coloured sheets and flowers' } },
-      { key: 'laboratori/urban-paper-6', alt: { it: 'Pagina del sito WWF dedicata all’evento “Urban Paper: dalla carta al fiore”, Urban Nature 2026', en: 'WWF web page for the event “Urban Paper: from paper to flower”, Urban Nature 2026' } },
       { key: 'laboratori/urban-paper-7', alt: { it: 'Descrizione dell’evento Urban Paper sul sito WWF, nell’ambito di Urban Nature', en: 'Description of the Urban Paper event on the WWF website, as part of Urban Nature' } },
       { key: 'laboratori/urban-paper-8', alt: { it: 'Pagina del sito WWF Urban Nature 2026, con l’elenco degli eventi', en: 'WWF Urban Nature 2026 web page, with the list of events' } },
     ],
@@ -97,6 +97,7 @@ export const christmas = {
     { key: 'laboratori/officina-3', alt: { it: 'Una casetta di carta traforata illuminata dall’interno', en: 'A cut-out paper house lit from the inside' } },
     { key: 'laboratori/officina-15', alt: { it: 'Ghirlanda di carta bianca con pompon rossi e verdi appesa a una porta', en: 'White paper garland with red and green pompoms hanging on a door' } },
     { key: 'laboratori/officina-16', alt: { it: 'Alberelli e decorazioni di carta piegata con cordino, nastri e rametti verdi', en: 'Folded paper trees and decorations with twine, ribbons and green sprigs' } },
+    { key: 'laboratori/officina-17', alt: { it: 'Ghirlanda natalizia con rami di pino, fiori rossi, gypsophila e lucine, con un villaggio di carta illuminato al centro', en: 'Christmas wreath with pine branches, red flowers, baby’s breath and fairy lights, with a lit paper village in the centre' } },
   ] satisfies Shot[],
 };
 
