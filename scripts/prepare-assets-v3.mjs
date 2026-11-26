@@ -70,6 +70,8 @@ const PHOTOS = {
   'lavori/primavera-rosa': 'DESK:WhatsApp Image 2026-11-24 at 14.12.44.jpeg',
   // Laboratori · Christmas lights: ghirlanda con villaggio di carta illuminato
   'laboratori/officina-17': 'DESK:WhatsApp Image 2026-11-24 at 11.43.31.jpeg',
+  // Paper lamps: lampada con figura dal cappello a fiore, su fondo nero
+  'lavori/lampada-cappello': 'DESK:WhatsApp Image 2026-11-25 at 16.01.19.jpeg',
   // Sfondi: fiori di carta su fondo scuro
 };
 

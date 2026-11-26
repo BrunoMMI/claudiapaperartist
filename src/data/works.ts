@@ -72,9 +72,9 @@ export const categories: WorkCategory[] = [
       en: 'Light No. 3, a white paper wall sculpture with deep folds on a dark background',
     },
     shots: [
-      { key: 'lavori/figura-3', alt: { it: 'Figura scolpita in carta bianca con rami sul busto, su fondo nero', en: 'Sculpted white paper figure with branches on the bust, on a black background' } },
-      { key: 'lavori/figura-4', alt: { it: 'Figura scolpita in carta bianca vista da vicino, con rami e una chioma raccolta, su fondo nero', en: 'Close view of a sculpted white paper figure, with branches and gathered hair, on a black background' } },
-      { key: 'lavori/figura-6', alt: { it: 'Figura scolpita in carta bianca, alta e slanciata, con rami in rilievo sul corpo e un ciuffo di rami secchi in primo piano, su fondo nero', en: 'Sculpted white paper figure, tall and slender, with branches in relief on the body and a bunch of dry twigs in the foreground, on a black background' } },
+      { key: 'lavori/figura-3', title: 'Beth (Spirito di luce)', alt: { it: 'Figura scolpita in carta bianca con rami sul busto, su fondo nero', en: 'Sculpted white paper figure with branches on the bust, on a black background' } },
+      { key: 'lavori/figura-4', title: 'Beth (Spirito di luce)', alt: { it: 'Figura scolpita in carta bianca vista da vicino, con rami e una chioma raccolta, su fondo nero', en: 'Close view of a sculpted white paper figure, with branches and gathered hair, on a black background' } },
+      { key: 'lavori/figura-6', title: 'Beth (Spirito di luce)', alt: { it: 'Figura scolpita in carta bianca, alta e slanciata, con rami in rilievo sul corpo e un ciuffo di rami secchi in primo piano, su fondo nero', en: 'Sculpted white paper figure, tall and slender, with branches in relief on the body and a bunch of dry twigs in the foreground, on a black background' } },
       { key: 'lavori/toscana', title: 'Toscana', alt: { it: 'Toscana, scultura da parete in carta: colline stilizzate con file di cipressi', en: 'Toscana, a paper wall sculpture: stylised hills with rows of cypresses' } },
       { key: 'lavori/unlimited', title: 'Unlimited', alt: { it: 'Unlimited, scultura di carta bianca stropicciata con rilievi profondi', en: 'Unlimited, a crumpled white paper sculpture with deep relief' } },
       { key: 'lavori/light-1', title: 'Light No. 1', alt: { it: 'Light No. 1, scultura da parete in carta dalle pieghe morbide e lucide', en: 'Light No. 1, a paper wall sculpture with soft, glossy folds' } },
@@ -110,6 +110,7 @@ export const categories: WorkCategory[] = [
     shots: [
       { key: 'lavori/ballerina-di-flamenco', title: 'Ballerina di Flamenco', alt: { it: 'Ballerina di Flamenco, lampada di carta a forma di figura danzante con gonna ampia', en: 'Flamenco Dancer, a paper lamp shaped like a dancing figure with a wide skirt' } },
       { key: 'lavori/dama-con-farfalla', title: 'Dama con Farfalla', alt: { it: 'Dama con Farfalla, lampada di carta con una figura che porta una farfalla sul cappello', en: 'Lady with Butterfly, a paper lamp with a figure wearing a butterfly on her hat' } },
+      { key: 'lavori/lampada-cappello', alt: { it: 'Lampada di carta con una figura femminile dal grande cappello a fiore sopra una base ovale luminosa, su fondo nero', en: 'Paper lamp with a female figure wearing a large flower hat above a glowing oval base, on a black background' } },
       { key: 'lavori/ballerina', title: 'Ballerina', alt: { it: 'Ballerina, lampada di carta con una figura danzante in equilibrio sulla sommità di una base ovale luminosa', en: 'Dancer, a paper lamp with a dancing figure balanced on top of a glowing oval base' } },
       { key: 'lavori/ragazza-che-legge', title: 'Ragazza che legge', alt: { it: 'Ragazza che legge, lampada di carta con una figura seduta che regge un libro sopra una base luminosa di petali, accanto a un paio di occhiali', en: 'Girl Reading, a paper lamp with a seated figure holding a book above a glowing base of petals, next to a pair of glasses' } },
     ],
